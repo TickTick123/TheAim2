@@ -24,10 +24,11 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Startpage"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -35,31 +36,30 @@
             android:name=".LoginActivity"
             android:exported="true"
             android:label="@string/login"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".RegisterActivity"
             android:exported="true"
             android:label="@string/login_5"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".PhoneRegisterActivity"
             android:exported="true"
             android:label="@string/login_6"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ForgetPasswordActivity"
             android:exported="true"
             android:label="@string/login_4"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
+            android:exported="true"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
-            android:exported="true"></activity>
-
-
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AddAimActivity" />
+        <activity android:name=".SetTimeActivity"></activity>
     </application>
 
 </manifest>
