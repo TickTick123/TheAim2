@@ -330,7 +330,7 @@ public class MonthDateView extends View {
      * @return
      */
     public int getmSelYear() {
-        return mSelYear;
+        return this.mSelYear;
     }
 
     /**
@@ -339,8 +339,8 @@ public class MonthDateView extends View {
      * @return
      */
     public int getmSelMonth() {
-        mSelMonth = mSelMonth + 1 ;
-        return mSelMonth;
+
+        return this.mSelMonth;
     }
 
     /**

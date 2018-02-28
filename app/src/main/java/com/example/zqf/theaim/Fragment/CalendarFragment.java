@@ -31,14 +31,17 @@ public class CalendarFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_calendar,null);
-        /*monthDateView = (MonthDateView) view.findViewById(R.id.monthDateView);
+        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
+        monthDateView = (MonthDateView) view.findViewById(R.id.monthDateView);
+        int month;
+        month = monthDateView.getmSelMonth() + 1;
         monthDateView.setDateClick(new MonthDateView.DateClick() {
             public void onClickOnDate() {
-                Toast.makeText(getContext(), monthDateView.getmSelYear()+"年"+monthDateView.getmSelMonth()+"月"+ monthDateView.getmSelDay()+"日", Toast.LENGTH_SHORT).show();
+                int month;
+                month = monthDateView.getmSelMonth() + 1;
+                Toast.makeText(getContext(), monthDateView.getmSelYear() + "年" + month + "月" + monthDateView.getmSelDay() + "日", Toast.LENGTH_SHORT).show();
             }
-        });*/
-
+        });
         // Inflate the layout for this fragment
         return view;
 
