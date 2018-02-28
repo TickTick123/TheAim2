@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/TheAim.iml" filepath="$PROJECT_DIR$/TheAim.iml" />
+      <module fileurl="file://F:\aim\TheAim\TheAim.iml" filepath="F:\aim\TheAim\TheAim.iml" />
+      <module fileurl="file://E:\AndriodProject\Androidbackup\back\TheAim\TheAim.iml" filepath="E:\AndriodProject\Androidbackup\back\TheAim\TheAim.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\AndriodProject\Androidbackup\back\TheAim\app\app.iml" filepath="E:\AndriodProject\Androidbackup\back\TheAim\app\app.iml" />
+      <module fileurl="file://F:\aim\TheAim\app\app.iml" filepath="F:\aim\TheAim\app\app.iml" />
+    </modules>
+  </component>
+</project>

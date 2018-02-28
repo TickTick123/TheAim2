@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">TheAim</string>
+
+    <string name="login_1">用户名/手机号</string>
+    <string name="login_2">请输入密码</string>
+    <string name="login_3">记住密码</string>
+    <string name="login">登录</string>
+    <string name="login_4">忘记密码</string>
+    <string name="login_5">一键注册</string>
+    <string name="login_6">手机注册</string>
+    <string name="reg_1">请输入用户名</string>
+    <string name="reg">注册</string>
+    <string name="phone_reg_1">请输入手机号</string>
+    <string name="phone_reg_2">请输入验证码</string>
+    <string name="phone_reg_3">获取验证码</string>
+    <string name="phone_forget_1">请输入新密码</string>
+    <string name="phone_forget_2">重置密码</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
