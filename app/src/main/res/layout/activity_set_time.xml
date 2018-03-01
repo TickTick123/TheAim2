@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp" />
     <com.example.zqf.theaim.Fragment.MonthDateView
+        android:id="@+id/monthDateView"
         android:layout_width="fill_parent"
         android:layout_height="350dp" />
     <TextView
@@ -18,6 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="25sp"
-        android:hint="设置时间"/>
+        android:hint="@string/settime"/>
 
 </LinearLayout>

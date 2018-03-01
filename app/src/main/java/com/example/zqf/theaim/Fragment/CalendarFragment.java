@@ -33,8 +33,6 @@ public class CalendarFragment extends Fragment{
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
         monthDateView = (MonthDateView) view.findViewById(R.id.monthDateView);
-        int month;
-        month = monthDateView.getmSelMonth() + 1;
         monthDateView.setDateClick(new MonthDateView.DateClick() {
             public void onClickOnDate() {
                 int month;
