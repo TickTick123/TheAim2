@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.zqf.theaim.Bean.Schedule;
 import com.example.zqf.theaim.Bean.User;
+import com.example.zqf.theaim.Fragment.AimFragment;
 import com.example.zqf.theaim.Fragment.CalendarFragment;
 import com.example.zqf.theaim.Fragment.MonthDateView;
 import com.example.zqf.theaim.Fragment.ScheduleFragment;
@@ -114,8 +115,7 @@ public class MainActivity extends AppCompatActivity
             replaceFragment(new TodayFragment());
 
         } else if (id == R.id.nav_gallery) {                    //目标箱
-
-
+            replaceFragment(new AimFragment());
         } else if (id == R.id.nav_slideshow) {                  //日程箱
             replaceFragment(new ScheduleFragment());
 
