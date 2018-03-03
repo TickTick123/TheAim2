@@ -16,13 +16,13 @@
         android:gravity="center" />
 
     <ImageView
-        android:id="@+id/image_child"
+        android:id="@+id/delete_child"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/ic_overflow" />
+        android:background="@drawable/delete" />
 
 
 </RelativeLayout>

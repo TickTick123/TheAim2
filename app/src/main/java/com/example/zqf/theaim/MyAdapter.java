@@ -6,11 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.zqf.theaim.Fragment.AimFragment;
-
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -77,6 +75,20 @@ public class MyAdapter extends BaseExpandableListAdapter {
         if(convertView == null){
             convertView = LayoutInflater.from(context).inflate(R.layout.list_item_parent, null);
         }
+        ImageView image_add=(ImageView) convertView.findViewById(R.id.image_add);
+        ImageView image_delete=(ImageView) convertView.findViewById(R.id.delete_parent);
+       image_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertAddDialog(MainActivity.fragment.getActivity(), "新增子项", groupPos);
+            }
+        });
+        image_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AimFragment.deleteGroup(groupPos);
+            }
+        });
         TextView parentText = (TextView) convertView.findViewById(R.id.text_parent);
         parentText.setText(parentList.get(groupPosition));//重绘
         return convertView;
@@ -92,11 +104,16 @@ public class MyAdapter extends BaseExpandableListAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.list_item_child, null);
         }
         TextView childText = (TextView) convertView.findViewById(R.id.text_child);
-
+        ImageView image_delete = (ImageView) convertView.findViewById(R.id.delete_child);
         String parentName = parentList.get(groupPosition);
         String childName = map.get(parentName).get(childPosition);
         childText.setText(childName);
-
+        image_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AimFragment.deleteChild(groupPos, childPos);
+            }
+        });
         return convertView;
     }
 
