@@ -37,7 +37,7 @@ import cn.bmob.v3.listener.SaveListener;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-
+    static AimFragment  fragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,8 +114,9 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {                              //今天
             replaceFragment(new TodayFragment());
 
-        } else if (id == R.id.nav_gallery) {                    //目标箱
-            replaceFragment(new AimFragment());
+        } else if (id == R.id.nav_gallery) {//目标箱
+            fragment=new AimFragment();
+            replaceFragment(fragment);
         } else if (id == R.id.nav_slideshow) {                  //日程箱
             replaceFragment(new ScheduleFragment());
 

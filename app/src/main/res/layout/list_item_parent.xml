@@ -15,22 +15,22 @@
         android:gravity="center"/>
 
     <ImageView
-        android:id="@+id/image_star"
+        android:id="@+id/image_add"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:src="@android:drawable/btn_star_big_on" />
+        android:background="@drawable/plus2" />
 
     <ImageView
-        android:id="@+id/image_parent"
+        android:id="@+id/delete_parent"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/ic_overflow" />
+        android:background="@drawable/delete" />
 
 
 </RelativeLayout>
