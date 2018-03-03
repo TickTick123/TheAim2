@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://F:/aim/TheAim/TheAim.iml" filepath="F:/aim/TheAim/TheAim.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TheAim2.iml" filepath="$PROJECT_DIR$/TheAim2.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-<<<<<<< HEAD
-=======
-      <module fileurl="file://E:\AndriodProject\Androidbackup\back\TheAim\app\app.iml" filepath="E:\AndriodProject\Androidbackup\back\TheAim\app\app.iml" />
-      <module fileurl="file://F:\aim\TheAim\app\app.iml" filepath="F:\aim\TheAim\app\app.iml" />
->>>>>>> 0668c25b997568f98c1cb4fdcac9505d4e4491be
     </modules>
   </component>
 </project>

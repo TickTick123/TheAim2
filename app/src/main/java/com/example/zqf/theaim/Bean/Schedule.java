@@ -12,9 +12,9 @@ public class Schedule extends BmobObject {
     private String rewardpoint;  //此日程所得的奖励点（1，2，3）
     private String content;  //内容
     private String decribe;  // 描述
-    private String year;  //年
-    private String mouth;  //月
-    private String day;  //日
+    private int year;  //年
+    private int month;  //月
+    private int day;  //日
     private String done;  //是否完成（ture:完成，false:未完成）
     private String time;  //所设置时间
     private String remind;  //是否提醒（闹铃）这三个先不用
@@ -63,27 +63,27 @@ public class Schedule extends BmobObject {
 
 
 
-    public String getYear() {
+    public int getYear() {
         return year;
     }
 
-    public void setYear(String year) {
+    public void setYear(int year) {
         this.year = year;
     }
 
-    public String getMouth() {
-        return mouth;
+    public int getMouth() {
+        return month;
     }
 
-    public void setMouth(String mouth) {
-        this.mouth = mouth;
+    public void setMouth(int month) {
+        this.month = month;
     }
 
-    public String getDay() {
+    public int getDay() {
         return day;
     }
 
-    public void setDay(String day) {
+    public void setDay(int day) {
         this.day = day;
     }
 
