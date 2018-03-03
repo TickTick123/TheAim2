@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.Toast;
-
+//
 import com.example.zqf.theaim.ModifyDialog;
 import com.example.zqf.theaim.MyAdapter;
 import com.example.zqf.theaim.R;
@@ -260,7 +260,7 @@ public class AimFragment extends Fragment {
     public void alertAddDialog(Context context, String title){
         dialog = new ModifyDialog(context, title, null);
         edit_modify = dialog.getEditText();//获取输入的内容
-        dialog.setOnClickCommitListener(new View.OnClickListener() {
+        dialog.setOnClickCommitListener(new View.OnClickListener() {//设置对话框的点击事件响应
             @Override
             public void onClick(View v) {
                 addGroup(edit_modify.getText().toString());

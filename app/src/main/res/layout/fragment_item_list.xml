@@ -7,23 +7,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.zqf.theaim.Fragment.ScheduleFragment">
+
     <ListView
         android:id="@+id/list1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></ListView>
 
-    <TextView
-        android:id="@+id/donetext"
-        android:layout_width="match_parent"
-        android:layout_height="25dip"
-        android:text="已完成"
-        android:layout_below="@id/list1"/>
+    <!--<TextView-->
+        <!--android:id="@+id/donetext"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="25dip"-->
+        <!--android:text="已完成"-->
+        <!--android:layout_below="@id/list1"/>-->
 
-    <ListView
-        android:id="@+id/list2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/donetext"></ListView>
+    <!--<ListView-->
+        <!--android:id="@+id/list2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/donetext"></ListView>-->
 
 </RelativeLayout>
 
