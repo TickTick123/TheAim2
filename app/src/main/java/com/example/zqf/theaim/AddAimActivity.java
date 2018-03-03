@@ -54,7 +54,7 @@ public class AddAimActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bmob .initialize(this,"952c699bad14188ea5ef2af20da327b6");
+        Bmob .initialize(this,"ec3bba86368b1357bc945565b76b617c");
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);  //显示返回箭头
         //actionBar.setHomeAsUpIndicator(R.drawable.back); //修改actionbar左上角返回按钮的图标
@@ -82,7 +82,7 @@ public class AddAimActivity extends AppCompatActivity {
             }
         });
 
-        describe.addTextChangedListener(new TextWatcher() {
+        title.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -127,21 +127,16 @@ public class AddAimActivity extends AppCompatActivity {
                         if(strArray[which].equals("3分")){
                             pointbtn.setBackgroundResource(R.drawable.three_point);
                             schedule.setRewardpoint("3");
-                           // point = "3";
-                            //GetPoint(point);
                         }else if(strArray[which].equals("2分")){
                             pointbtn.setBackgroundResource(R.drawable.two_point);
                             schedule.setRewardpoint("2");
-                            //point = "2";
-                            //GetPoint(point);
                         }else if(strArray[which].equals("1分")){
                             pointbtn.setBackgroundResource(R.drawable.one_point);
-                           // schedule.setRewardpoint("1");
+                            schedule.setRewardpoint("1");
                         }else if(strArray[which].equals("0分")){
                             pointbtn.setBackgroundResource(R.drawable.aim_point);
-                          //  schedule.setRewardpoint("0");
+                            schedule.setRewardpoint("0");
                         }
-                        //schedule.setRewardpoint(point);
                         SaveRecord(schedule.getObjectId(),schedule);
                     }
                 });
@@ -164,6 +159,8 @@ public class AddAimActivity extends AppCompatActivity {
 
         state = (ImageButton)findViewById(R.id.state_btn);
         //Bmob .initialize(this,"952c699bad14188ea5ef2af20da327b6");
+        schedule.setDone("未完成");   //初始状态为未完成
+        SaveRecord(schedule.getObjectId(),schedule);
         state.setOnClickListener(new View.OnClickListener() {
             int i = 0;   //用于判断 任务的状态 1为完成 0为未完成
             @Override
