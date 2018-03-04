@@ -2,6 +2,7 @@ package com.example.zqf.theaim;
 
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -56,10 +57,12 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-                BmobUser.logOut();   //清除缓存用户对象，既退出
+                Intent mainIntent=new Intent(MainActivity.this,AddAimActivity.class);
+                startActivity(mainIntent);
 
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //BmobUser.logOut();   //清除缓存用户对象，既退出
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                      //  .setAction("Action", null).show();
             }
         });
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -70,7 +73,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        user = BmobUser.getCurrentUser(User.class);        //bmob查询当前缓存用户
+        //user = BmobUser.getCurrentUser(User.class);        //bmob查询当前缓存用户
 
     }
 
@@ -128,9 +131,9 @@ public class MainActivity extends AppCompatActivity
 //            //p2.setMastergoal();
 //            p2.setContent("ppp");
 //            p2.setDecribe("sdf");
-//            p2.setYear("20xcv1sdf8");
-//            p2.setMouth("sfxc");
-//            p2.setDay("27vcs");
+//            p2.setYear(2016);
+//            p2.setMouth(3);
+//            p2.setDay(2);
 //            p2.setDone("flase");
 //            p2.setTime("22sdmin");
 //            p2.save(new SaveListener<String>() {
