@@ -53,7 +53,7 @@
             android:label="@string/login_4"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AddAimActivity"
+            android:name=".AddScheduleActivity"
             android:exported="true"
             android:label="@string/addaim"
             android:screenOrientation="portrait" />

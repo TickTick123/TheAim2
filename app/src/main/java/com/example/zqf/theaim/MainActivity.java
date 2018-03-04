@@ -5,13 +5,10 @@ package com.example.zqf.theaim;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,22 +20,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.zqf.theaim.Bean.Schedule;
-import com.example.zqf.theaim.Bean.User;
 import com.example.zqf.theaim.Fragment.AimFragment;
 import com.example.zqf.theaim.Fragment.CalendarFragment;
-import com.example.zqf.theaim.Fragment.MonthDateView;
 import com.example.zqf.theaim.Fragment.ScheduleFragment;
 import com.example.zqf.theaim.Fragment.TodayFragment;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.SaveListener;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -57,7 +42,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-                Intent mainIntent=new Intent(MainActivity.this,AddAimActivity.class);
+                Intent mainIntent=new Intent(MainActivity.this,AddScheduleActivity.class);
                 startActivity(mainIntent);
 
                 //BmobUser.logOut();   //清除缓存用户对象，既退出

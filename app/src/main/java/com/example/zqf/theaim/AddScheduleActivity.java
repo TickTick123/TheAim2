@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -17,12 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zqf.theaim.Bean.Schedule;
+import com.example.zqf.theaim.Bean.User;
 
-import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
-public class AddAimActivity extends AppCompatActivity {
+public class AddScheduleActivity extends AppCompatActivity {
 
     private TextView textView;
     private EditText title;
@@ -34,7 +36,6 @@ public class AddAimActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //Bmob .initialize(this,"952c699bad14188ea5ef2af20da327b6");
         if(requestCode == 0x11 && resultCode == 0x11){
             Bundle bundle = data.getExtras();
             String t = bundle.getString("time");
@@ -45,22 +46,22 @@ public class AddAimActivity extends AppCompatActivity {
                 schedule.setTime(t);
             }
             schedule.setYear(bundle.getInt("year"));
-            schedule.setMouth(bundle.getInt("month"));
+            schedule.setMonth(bundle.getInt("month"));
             schedule.setDay(bundle.getInt("day"));
-            SaveRecord(schedule.getObjectId(),schedule);
         }
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Bmob .initialize(this,"ec3bba86368b1357bc945565b76b617c");
+        schedule.setDone("false");   //初始状态为未完成
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);  //显示返回箭头
-        //actionBar.setHomeAsUpIndicator(R.drawable.back); //修改actionbar左上角返回按钮的图标
         setContentView(R.layout.activity_add_aim);
 
         textView = (TextView)findViewById(R.id.aim_time);
+
+
 
         title = findViewById(R.id.aim_title);
         describe = findViewById(R.id.aim_describe);
@@ -78,7 +79,6 @@ public class AddAimActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 schedule.setDecribe(describe.getText().toString());
-                SaveRecord(schedule.getObjectId(),schedule);
             }
         });
 
@@ -96,7 +96,6 @@ public class AddAimActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 schedule.setContent(title.getText().toString());
-                SaveRecord(schedule.getObjectId(),schedule);
             }
         });
 
@@ -105,7 +104,7 @@ public class AddAimActivity extends AppCompatActivity {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddAimActivity.this,SetTimeActivity.class);
+                Intent intent = new Intent(AddScheduleActivity.this,SetTimeActivity.class);
                 startActivityForResult(intent,0x11);
             }
         });
@@ -115,7 +114,7 @@ public class AddAimActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final String[] strArray = new String[]{"3分","2分","1分","0分"};
-                final AlertDialog.Builder builder = new AlertDialog.Builder(AddAimActivity.this);//实例化builder
+                final AlertDialog.Builder builder = new AlertDialog.Builder(AddScheduleActivity.this);//实例化builder
                 builder.setIcon(R.mipmap.ic_launcher);//设置图标
                 builder.setTitle(R.string.points);//设置标题
 
@@ -137,7 +136,6 @@ public class AddAimActivity extends AppCompatActivity {
                             pointbtn.setBackgroundResource(R.drawable.aim_point);
                             schedule.setRewardpoint("0");
                         }
-                        SaveRecord(schedule.getObjectId(),schedule);
                     }
                 });
                 //创建对话框
@@ -153,29 +151,21 @@ public class AddAimActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
         state = (ImageButton)findViewById(R.id.state_btn);
-        //Bmob .initialize(this,"952c699bad14188ea5ef2af20da327b6");
-        schedule.setDone("未完成");   //初始状态为未完成
-        SaveRecord(schedule.getObjectId(),schedule);
         state.setOnClickListener(new View.OnClickListener() {
             int i = 0;   //用于判断 任务的状态 1为完成 0为未完成
+
             @Override
             public void onClick(View v) {
                 if(i == 0)
                 {
-                    state.setBackgroundResource(R.drawable.example);
+                    state.setBackgroundResource(R.drawable.square_ok);
                     i = 1;
-                    schedule.setDone("已完成");
-                    SaveRecord(schedule.getObjectId(),schedule);
+                    schedule.setDone("true");
                 }else{
-                    state.setBackgroundResource(R.drawable.aim_state);
+                    state.setBackgroundResource(R.drawable.square);
                     i = 0;
-                    schedule.setDone("未完成");
-                    SaveRecord(schedule.getObjectId(),schedule);
+                    schedule.setDone("false");
                 }
             }
         });
@@ -198,6 +188,19 @@ public class AddAimActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                User user= BmobUser.getCurrentUser(User.class);        //bmob查询当前缓存;
+                schedule.setMaster(user);
+                this.finish();
+                SaveRecord(schedule.getObjectId(),schedule);
+                return false;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

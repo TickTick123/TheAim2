@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.zqf.theaim.AddAimActivity"
+    tools:context="com.example.zqf.theaim.AddScheduleActivity"
     android:orientation="vertical">
 
     <LinearLayout
@@ -18,14 +18,14 @@
             android:layout_width="4dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.5"
-            android:background="@drawable/aim_state" />
+            android:background="@drawable/square" />
 
         <TextView
             android:id="@+id/aim_time"
             android:layout_width="264dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="今天" />
+            android:hint="@string/aim_time" />
 
         <ImageButton
             android:id="@+id/point_btn"
@@ -40,7 +40,7 @@
         android:id="@+id/aim_title"
         android:layout_width="match_parent"
         android:layout_height="66dp"
-        android:text="标题"
+        android:hint="@string/schedule_title"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="45dp" />
@@ -50,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="129dp"
         android:layout_marginBottom="372dp"
-        android:hint="描述"
+        android:hint="@string/schedule_describe"
         android:maxLines="50"
         android:minLines="1"
         android:scrollbars="vertical"

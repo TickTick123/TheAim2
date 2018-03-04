@@ -18,7 +18,10 @@
     <string name="addaim">添加目标</string>
     <string name="time">日期</string>
     <string name="settime">设置时间</string>
+    <string name="aim_time">请设置时间</string>
     <string name="points">奖励点数</string>
+    <string name="schedule_title">准备做点什么？</string>
+    <string name="schedule_describe">描述</string>
     <string name="title_activity_main">MainActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
