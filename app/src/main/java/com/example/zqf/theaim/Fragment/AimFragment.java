@@ -79,35 +79,22 @@ public class AimFragment extends Fragment {
     public void initData(){
         map = new HashMap<String, List<String>>();
         parentList = new ArrayList<String>();
-
+        // getSharedPreferences里面
+        // 参数一为要保存的xml文件名，不同的文件名产生的对象不同，但同一文件名可以产生多个引用，
+        // 从而可以保证数据共享。此处注意指定参数一时，不用加xml后缀，由系统自动添加
+        // 参数二使得SharedPreferences存储的数据只能在本应用内获得
+        // https://www.cnblogs.com/baipengzhan/p/Android_SharedPreferences.html（包含对　SharedPreferences的讲解）
         sp = getActivity().getApplicationContext().getSharedPreferences("spfile", getActivity().MODE_PRIVATE);
+       //查询SharedPreferences存储的数据
+        // 第一个参数是要查询的键，返回对应的值，当键不存在时，返回参数二作为结果。
         dataMap = sp.getString("dataMap", null);
         dataParentList = sp.getString("dataParentList", null);
 
-        if(dataMap == null || dataParentList == null){
-            parentList = new ArrayList<String>();
-            parentList.add("客厅");
-            parentList.add("厨房");
-            parentList.add("卧室");
+      if(dataMap == null || dataParentList == null){
+            Toast.makeText(getActivity(),"请添加组",Toast.LENGTH_SHORT).show();//tgy的
 
-            List<String> list1 = new ArrayList<String>();
-            list1.add("客厅空调");
-            list1.add("客厅电视");
-            list1.add("客厅电灯");
-            map.put("客厅", list1);
-
-            List<String> list2 = new ArrayList<String>();
-            list2.add("厨房油烟机");
-            list2.add("厨房电灯");
-            list2.add("厨房电器");
-            map.put("厨房", list2);
-
-            List<String> list3 = new ArrayList<String>();
-            list3.add("卧室空调");
-            list3.add("卧室灯光");
-            list3.add("卧室电视");
-            map.put("卧室", list3);
-        }else{
+        }
+        else{
             try {
                 //初始化parentList
                 JSONArray jsonArray = new JSONArray(dataParentList);
@@ -279,6 +266,7 @@ public class AimFragment extends Fragment {
         editor = sp.edit();
         editor.putString("dataMap", dataMap);
         editor.putString("dataParentList", dataParentList);
-        editor.commit();
+       editor.commit();
+        //  editor.clear().commit();
     }
 }
