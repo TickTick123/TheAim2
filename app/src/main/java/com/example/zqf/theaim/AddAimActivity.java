@@ -54,7 +54,7 @@ public class AddAimActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bmob .initialize(this,"ec3bba86368b1357bc945565b76b617c");
+        //Bmob .initialize(this,"ec3bba86368b1357bc945565b76b617c");
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);  //显示返回箭头
         //actionBar.setHomeAsUpIndicator(R.drawable.back); //修改actionbar左上角返回按钮的图标
