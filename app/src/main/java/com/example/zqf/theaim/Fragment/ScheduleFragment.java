@@ -2,6 +2,7 @@ package com.example.zqf.theaim.Fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.example.zqf.theaim.Adapter.ScheduleAdapter;
 import com.example.zqf.theaim.Bean.Schedule;
 import com.example.zqf.theaim.Bean.User;
+import com.example.zqf.theaim.ModifyScheduleActivity;
 import com.example.zqf.theaim.R;
 import com.example.zqf.theaim.Util;
 
@@ -109,11 +111,11 @@ public class ScheduleFragment extends Fragment {
                 toast("点击"+schedule1.getContent());
                 //Intent mainIntent=new Intent(getActivity(),RegisterActivity.class);     //应该跳转到修改界面
                 //startActivity(mainIntent);
-//                Intent intent=new Intent(getContext(), AddScheduleActivity.class);       //修改界面
-//                Bundle bundle=new Bundle();
-//                bundle.putSerializable("key",schedule1);
-//                intent.putExtras(bundle);
-//                getContext().startActivity(intent);
+                Intent intent=new Intent(getContext(), ModifyScheduleActivity.class);       //修改界面
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("key",schedule1);
+                intent.putExtras(bundle);
+                getContext().startActivity(intent);
 
 //                Intent intent =getIntent();
 //                Bundle bundle=intent.setExtras();
