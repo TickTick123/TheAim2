@@ -13,12 +13,45 @@
     <com.example.zqf.theaim.Fragment.MonthDateView
         android:id="@+id/monthDateView"
         android:layout_width="fill_parent"
-        android:layout_height="350dp" />
+        android:layout_height="250dp" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#cfcfcf"
+        android:layout_marginVertical="10dp"/>
+
     <TextView
-        android:id="@+id/set_time"
+        android:id="@+id/click_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
-        android:hint="@string/settime"/>
+        android:hint="今天"
+        android:gravity="center_vertical|right"
+        android:textColor="#ee7600"/>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#cfcfcf"
+        android:layout_marginLeft="50dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/clock"
+            android:layout_marginLeft="10dp"/>
+        <TextView
+            android:id="@+id/set_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:hint="@string/settime"
+            android:layout_marginLeft="10dp"
+            android:textColor="#1e90ff"/>
+    </LinearLayout>
 
 </LinearLayout>

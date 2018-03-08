@@ -19,7 +19,7 @@ import java.util.Calendar;
 public class SetTimeActivity extends AppCompatActivity {
     private Calendar calendar;
     //private MonthDateView monthDateView;
-    private TextView textView;
+    private TextView clicktime;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class SetTimeActivity extends AppCompatActivity {
 
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.confirm); //修改actionbar左上角返回按钮的图标
+       // actionBar.setHomeAsUpIndicator(R.drawable.confirm); //修改actionbar左上角返回按钮的图标
         setContentView(R.layout.activity_set_time);
 
         calendar = Calendar.getInstance();
@@ -50,13 +50,13 @@ public class SetTimeActivity extends AppCompatActivity {
                         calendar.set(Calendar.MILLISECOND, 0);
                         if(minute<10)
                         {
-                            textView.setText("任务时间:"+hourOfDay+":0"+minute);
+                            textView.setText(hourOfDay+":0"+minute);
                             String time = hourOfDay+":0"+minute;
                             bundle.putCharSequence("time",time);
                             intent.putExtras(bundle);
                             setResult(0x11,intent);
                         }else{
-                            textView.setText("任务时间:"+hourOfDay+":"+minute);
+                            textView.setText(+hourOfDay+":"+minute);
                             String time = hourOfDay+":"+minute;
                             bundle.putCharSequence("time",time);
                             intent.putExtras(bundle);
@@ -68,6 +68,7 @@ public class SetTimeActivity extends AppCompatActivity {
             }
         });
 
+        clicktime = (TextView)findViewById(R.id.click_time);
         final MonthDateView monthDateView = (MonthDateView)findViewById(R.id.monthDateView);
         monthDateView.setDateClick(new MonthDateView.DateClick() {
             @Override
@@ -83,6 +84,7 @@ public class SetTimeActivity extends AppCompatActivity {
                 bundle.putInt("day",day);
                 intent.putExtras(bundle);
                 setResult(0x11,intent);
+                clicktime.setText(year+"年"+month+"月"+day+"日");
             }
         });
 

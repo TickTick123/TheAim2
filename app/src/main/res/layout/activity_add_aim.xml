@@ -15,46 +15,59 @@
 
         <ImageButton
             android:id="@+id/state_btn"
-            android:layout_width="4dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:background="@drawable/square" />
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/square"
+            android:layout_marginLeft="10dp"/>
 
         <TextView
             android:id="@+id/aim_time"
-            android:layout_width="264dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="@string/aim_time" />
+            android:layout_weight="10"
+            android:hint="@string/aim_time"
+            android:layout_marginLeft="15dp"
+            android:textColor="#f08080"/>
 
         <ImageButton
             android:id="@+id/point_btn"
-            android:layout_width="8dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:background="@drawable/aim_point" />
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/aim_point"
+            android:layout_marginRight="10dp"/>
 
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:background="#cfcfcf"
+        android:layout_marginVertical="10dp"/>
 
     <EditText
         android:id="@+id/aim_title"
         android:layout_width="match_parent"
-        android:layout_height="66dp"
+        android:layout_height="50dp"
         android:hint="@string/schedule_title"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="45dp" />
+        tools:layout_editor_absoluteY="45dp"
+        android:layout_marginHorizontal="10dp"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
 
     <EditText
         android:id="@+id/aim_describe"
         android:layout_width="match_parent"
-        android:layout_height="129dp"
-        android:layout_marginBottom="372dp"
+        android:layout_height="200dp"
         android:hint="@string/schedule_describe"
+        android:gravity="top|left"
         android:maxLines="50"
         android:minLines="1"
-        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="0dp"
+        android:background="@null"
+        android:layout_marginHorizontal="15dp"
+        android:textColor="#0000ff"/>
 </LinearLayout>

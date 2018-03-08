@@ -108,7 +108,7 @@ public class ScheduleFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int position1, long l) {
 
                 Schedule schedule1=scheduleList.get(position1);
-                toast("点击"+schedule1.getContent());
+                //toast("点击"+schedule1.getContent());
                 //Intent mainIntent=new Intent(getActivity(),RegisterActivity.class);     //应该跳转到修改界面
                 //startActivity(mainIntent);
                 Intent intent=new Intent(getContext(), ModifyScheduleActivity.class);       //修改界面

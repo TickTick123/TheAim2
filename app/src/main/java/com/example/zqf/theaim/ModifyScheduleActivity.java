@@ -48,7 +48,7 @@ public class ModifyScheduleActivity extends AddScheduleActivity {
         if(bundle!=null) {
             schedule = (Schedule) bundle.getSerializable("key");       //传来的schedule对象
         }
-        toast("ss"+schedule.getMonth()+schedule.getContent());
+        //toast("ss"+schedule.getMonth()+schedule.getContent());
 
         //获取日程时间
         String t = schedule.getTime();
