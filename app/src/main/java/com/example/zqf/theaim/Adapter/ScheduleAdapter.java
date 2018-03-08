@@ -45,9 +45,9 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
 //        content.setText(scheduleList.get(position).getContent());
 //        decribe.setText(scheduleList.get(position).getDecribe());
 
-        if(schedule.getDone().toString().equals("ture"))
+        if(schedule.getDone().equals("true"))
             Tickimage.setImageResource(R.drawable.square_ok);            //完成的显示勾号
-        if(schedule.getDone().toString().equals("flase"))
+        if(schedule.getDone().equals("false"))
             Tickimage.setImageResource(R.drawable.square);            //未完成的显示括号
 
         content.setText(schedule.getContent());
@@ -57,8 +57,8 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
             @Override
             public void onClick(View view) {
 
-                if(schedule.getDone().toString().equals("false")) {
-                    schedule.setDone("ture");
+                if(schedule.getDone().equals("false")) {
+                    schedule.setDone("true");
                     Tickimage.setImageResource(R.drawable.square_ok);        //修改图标
                     String id1 = schedule.getObjectId();
                     schedule.update(id1, new UpdateListener() {
@@ -71,7 +71,7 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
                             }
                         }
                     });
-                } else {
+                } else if(schedule.getDone().equals("true")){
                     schedule.setDone("false");
                     Tickimage.setImageResource(R.drawable.square);        //修改图标
                     String id1 = schedule.getObjectId();

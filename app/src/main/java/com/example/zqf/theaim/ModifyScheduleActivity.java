@@ -172,6 +172,7 @@ public class ModifyScheduleActivity extends AddScheduleActivity {
         state.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                toast(schedule.getDone().toString());
                 if(schedule.getDone().equals("false"))
                 {
                     state.setBackgroundResource(R.drawable.square_ok);
