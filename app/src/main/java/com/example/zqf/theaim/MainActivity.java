@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.zqf.theaim.Fragment.AddReDialogFragment;
 import com.example.zqf.theaim.Fragment.AimFragment;
 import com.example.zqf.theaim.Fragment.CalendarFragment;
 import com.example.zqf.theaim.Fragment.ScheduleFragment;
@@ -30,12 +31,14 @@ public class MainActivity extends AppCompatActivity
 
 
     static AimFragment  fragment;
+    private int num=0;              //标记目前所在fragment
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);           //悬浮按钮用于日程添加
         fab.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +90,18 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {                   //菜单按钮相应
+        if (id == R.id.action_add_aim) {                   //菜单添加目标按钮相应
+
+
+
+            return true;
+        }
+        if (id == R.id.action_add_reward) {               //菜单添加奖励按钮相应
+
+            FragmentManager fm=getSupportFragmentManager();
+            AddReDialogFragment addReDialogFragment=new AddReDialogFragment();
+            addReDialogFragment.show(fm,"re_dialog");
+
             return true;
         }
 
@@ -103,12 +117,18 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {                              //今天
             replaceFragment(new TodayFragment());
+            toolbar.setTitle("今天");
+            num=1;
 
         } else if (id == R.id.nav_gallery) {//目标箱
             fragment=new AimFragment();
             replaceFragment(fragment);
+            toolbar.setTitle("目标箱");
+            num=2;
         } else if (id == R.id.nav_slideshow) {                  //日程箱
             replaceFragment(new ScheduleFragment());
+            toolbar.setTitle("日程箱");
+            num=3;
 
 //            Schedule p2 = new Schedule();                       //测试
 //            User user = BmobUser.getCurrentUser(User.class);
@@ -135,8 +155,14 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {                     //日历
             replaceFragment(new CalendarFragment());
+            toolbar.setTitle("日历");
+            num=4;
 
         } else if (id == R.id.nav_share) {                      //奖励箱
+            toolbar.setTitle("奖励箱");
+            num=5;
+
+
 
         }
 //        else if (id == R.id.nav_send) {
@@ -146,7 +172,7 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-        ///
+
     }
 
     private void replaceFragment(Fragment fragment){                    //fragment切换
@@ -155,8 +181,9 @@ public class MainActivity extends AppCompatActivity
             transaction.replace(R.id.content,fragment);
             transaction.commit();
     }
+
     public void toast(String toast) {           //Toast便捷使用方法
         Toast.makeText(this, toast, Toast.LENGTH_LONG).show();
-    };
+    }
 
 }

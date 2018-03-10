@@ -38,9 +38,10 @@ import cn.bmob.v3.listener.UpdateListener;
  */
 public class ScheduleFragment extends Fragment {
 
-    private List<Schedule> scheduleList=new ArrayList<>();          //数据源
+    public List<Schedule> scheduleList=new ArrayList<>();          //数据源
     ScheduleAdapter adapter;
     User user;
+    BmobQuery<Schedule> query;
 
     public ScheduleFragment() {
 
@@ -76,9 +77,8 @@ public class ScheduleFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
         final ListView listView=(ListView) view.findViewById(R.id.list1);
 
-        BmobQuery<Schedule> query = new BmobQuery<Schedule>();              //按条件查找
-        query.addWhereEqualTo("master", user);  // 查询当前用户的所有日程
-        query.order("-updatedAt");
+        initdata();
+
         if( Util.isNetworkConnected(getContext()))       {        //居然可以不创建对象的使用
             //toast("有网");                                  //缓存不是本地数据库，也慢，不可直接created时完成
             query.setCachePolicy(BmobQuery.CachePolicy.NETWORK_ELSE_CACHE);
@@ -108,20 +108,11 @@ public class ScheduleFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int position1, long l) {
 
                 Schedule schedule1=scheduleList.get(position1);
-                //toast("点击"+schedule1.getContent());
-                //Intent mainIntent=new Intent(getActivity(),RegisterActivity.class);     //应该跳转到修改界面
-                //startActivity(mainIntent);
                 Intent intent=new Intent(getContext(), ModifyScheduleActivity.class);       //修改界面
                 Bundle bundle=new Bundle();
                 bundle.putSerializable("key",schedule1);
                 intent.putExtras(bundle);
                 getContext().startActivity(intent);
-
-//                Intent intent =getIntent();
-//                Bundle bundle=intent.setExtras();
-//                if(bundle!=null){
-//                    schedule=(Schedule)bundle.getSerializable("key");       //传来的schedule对象
-//                }
 
             }
         });
@@ -173,9 +164,14 @@ public class ScheduleFragment extends Fragment {
         return view;
     }
 
+    public  void initdata(){
+        query = new BmobQuery<Schedule>();              //按条件查找
+        query.addWhereEqualTo("master", user);  // 查询当前用户的所有日程
+        query.order("done");
+    }
 
     public void toast(String toast) {                   //Fragment里面的Toast便捷使用方法
         Toast.makeText(getActivity(), toast, Toast.LENGTH_LONG).show();
-    };
+    }
 
 }

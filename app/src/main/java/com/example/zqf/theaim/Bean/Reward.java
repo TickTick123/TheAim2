@@ -7,23 +7,23 @@ import cn.bmob.v3.BmobObject;
  */
 
 public class Reward extends BmobObject {
-    private String master; //日程所属用户的ID
-    private String costpoint; //此奖励所话费的奖励点
+    private User master; //日程所属用户的ID
+    private int costpoint; //此奖励所话费的奖励点
     private String content; //内容
 
-    public String getMaster() {
+    public User getMaster() {
         return master;
     }
 
-    public void setMaster(String master) {
+    public void setMaster(User master) {
         this.master = master;
     }
 
-    public String getCostpoint() {
+    public int getCostpoint() {
         return costpoint;
     }
 
-    public void setCostpoint(String costpoint) {
+    public void setCostpoint(int costpoint) {
         this.costpoint = costpoint;
     }
 
