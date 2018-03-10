@@ -2,6 +2,9 @@ package com.example.zqf.theaim;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.zqf.theaim.Bean.Schedule;
 import com.example.zqf.theaim.Bean.User;
+import com.example.zqf.theaim.Fragment.ScheduleFragment;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -52,10 +56,14 @@ public class ModifyScheduleActivity extends AddScheduleActivity {
 
         //获取日程时间
         String t = schedule.getTime();
-        if(TextUtils.isEmpty(t)){
+        if(TextUtils.isEmpty(t) && schedule.getYear()!=0 && schedule.getMonth()!=0 && schedule.getDay()!=0){
             textView.setText(schedule.getYear()+"年"+schedule.getMonth()+"月"+schedule.getDay()+"日");
-        }else {
+        }else if(!TextUtils.isEmpty(t) && schedule.getYear()!=0 && schedule.getMonth()!=0 && schedule.getDay()!=0){
             textView.setText(schedule.getYear()+"年"+schedule.getMonth()+"月"+schedule.getDay()+"日"+t);
+        }else if(TextUtils.isEmpty(t) && schedule.getYear()==0 && schedule.getMonth()==0 && schedule.getDay()==0){
+            textView.setText("今天");
+        }else if(!TextUtils.isEmpty(t) && schedule.getYear()==0 && schedule.getMonth()==0 && schedule.getDay()==0){
+            textView.setText("今天"+t);
         }
 
         //获取日程状态
@@ -236,15 +244,22 @@ public class ModifyScheduleActivity extends AddScheduleActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                User user= BmobUser.getCurrentUser(User.class);        //bmob查询当前缓存;
-                schedule.setMaster(user);
-                this.finish();
-                SaveRecord(schedule.getObjectId(),schedule);
-                return false;
+                if(TextUtils.isEmpty(title.getText())){
+                    this.finish();
+                    return false;
+                }else{
+                    User user= BmobUser.getCurrentUser(User.class);        //bmob查询当前缓存;
+                    schedule.setMaster(user);
+                    this.finish();
+                    SaveRecord(schedule.getObjectId(),schedule);
+                    return false;
+                }
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 
     public void toast(String toast) {                   //Fragment里面的Toast便捷使用方法
         Toast.makeText(this, toast, Toast.LENGTH_LONG).show();

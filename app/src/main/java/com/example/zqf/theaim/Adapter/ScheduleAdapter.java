@@ -2,6 +2,7 @@ package com.example.zqf.theaim.Adapter;
 
 import android.content.Context;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,8 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
 
         content.setText(schedule.getContent());
         decribe.setText(schedule.getDecribe());
+
+
 
         Tickimage.setOnClickListener(new View.OnClickListener() {
             @Override

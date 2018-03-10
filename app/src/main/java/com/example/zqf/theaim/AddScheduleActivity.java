@@ -3,6 +3,9 @@ package com.example.zqf.theaim;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.zqf.theaim.Bean.Schedule;
 import com.example.zqf.theaim.Bean.User;
+import com.example.zqf.theaim.Fragment.ScheduleFragment;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -78,7 +82,7 @@ public class AddScheduleActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                schedule.setDecribe(describe.getText().toString());
+                    schedule.setDecribe(describe.getText().toString());
             }
         });
 
@@ -110,6 +114,7 @@ public class AddScheduleActivity extends AppCompatActivity {
         });
 
         pointbtn = (ImageButton) findViewById(R.id.point_btn);
+        schedule.setRewardpoint("0");
         pointbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -193,14 +198,30 @@ public class AddScheduleActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                User user= BmobUser.getCurrentUser(User.class);        //bmob查询当前缓存;
-                schedule.setMaster(user);
-                this.finish();
-                SaveRecord(schedule.getObjectId(),schedule);
-                return false;
+                if(TextUtils.isEmpty(title.getText())){
+                    this.finish();
+                    return false;
+                }else{
+                    User user= BmobUser.getCurrentUser(User.class);        //bmob查询当前缓存;
+                    schedule.setMaster(user);
+                    this.finish();
+                    SaveRecord(schedule.getObjectId(),schedule);
+                    return false;
+                }
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    private void replaceFragment(Fragment fragment){                    //fragment切换
+        FragmentManager fm=getSupportFragmentManager();              //新的fragment的不同之处
+        FragmentTransaction transaction=fm.beginTransaction();      //fragment控制器
+        transaction.replace(R.id.content,fragment);
+        transaction.commit();
+    }
+
+    public void toast(String toast) {                   //Fragment里面的Toast便捷使用方法
+        Toast.makeText(this, toast, Toast.LENGTH_LONG).show();
+    };
 }
+
