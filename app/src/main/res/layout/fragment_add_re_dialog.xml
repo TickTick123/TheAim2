@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:orientation="vertical"
+    tools:context="com.example.zqf.theaim.Fragment.AddReDialogFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <EditText
+        android:id="@+id/re_content"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:singleLine="true"
+        android:hint="@string/add_re_content"/>
+    <EditText
+        android:id="@+id/re_costpoint"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:singleLine="true"
+        android:hint="@string/add_re_costpoint"/>
+    <Button
+        android:id="@+id/re_commit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/sure"
+        android:textColor="#FFF"
+        android:background="#0099ff"
+        />
+
+</LinearLayout>

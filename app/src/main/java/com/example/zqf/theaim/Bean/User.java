@@ -20,43 +20,41 @@ public class User extends BmobUser {
 	// private String email;手机号（可用于登录）
 
 
-	private String scheduleNumber;     //日程数
-	private String completedscheduleNumber;  //已完成日程数
-	private String rewardpoint;   //奖励点
-	private String state; 		     // 状态
+	private int scheduleNumber;     //日程数
+	private int completedscheduleNumber;  //已完成日程数
+	private int rewardpoint;   //奖励点
+	private Boolean state; 		     // 状态
 	private BmobFile picUser; 	// 头像
 
-
-
-	public String getScheduleNumber() {
+	public int getScheduleNumber() {
 		return scheduleNumber;
 	}
 
-	public void setScheduleNumber(String scheduleNumber) {
+	public void setScheduleNumber(int scheduleNumber) {
 		this.scheduleNumber = scheduleNumber;
 	}
 
-	public String getCompletedscheduleNumber() {
+	public int getCompletedscheduleNumber() {
 		return completedscheduleNumber;
 	}
 
-	public void setCompletedscheduleNumber(String completedscheduleNumber) {
+	public void setCompletedscheduleNumber(int completedscheduleNumber) {
 		this.completedscheduleNumber = completedscheduleNumber;
 	}
 
-	public String getRewardpoint() {
+	public int getRewardpoint() {
 		return rewardpoint;
 	}
 
-	public void setRewardpoint(String rewardpoint) {
+	public void setRewardpoint(int rewardpoint) {
 		this.rewardpoint = rewardpoint;
 	}
 
-	public String getState() {
+	public Boolean getState() {
 		return state;
 	}
 
-	public void setState(String state) {
+	public void setState(Boolean state) {
 		this.state = state;
 	}
 
