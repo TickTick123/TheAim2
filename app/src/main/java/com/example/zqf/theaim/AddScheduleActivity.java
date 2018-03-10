@@ -65,8 +65,6 @@ public class AddScheduleActivity extends AppCompatActivity {
 
         textView = (TextView)findViewById(R.id.aim_time);
 
-
-
         title = findViewById(R.id.aim_title);
         describe = findViewById(R.id.aim_describe);
         describe.addTextChangedListener(new TextWatcher() {
@@ -102,8 +100,6 @@ public class AddScheduleActivity extends AppCompatActivity {
                 schedule.setContent(title.getText().toString());
             }
         });
-
-
 
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
