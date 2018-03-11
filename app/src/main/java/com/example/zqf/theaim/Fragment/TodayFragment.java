@@ -31,7 +31,7 @@ public class TodayFragment extends ScheduleFragment {
         mYear=c.get(Calendar.YEAR);
         mMonth=c.get(Calendar.MONTH)+1;
         mDay=c.get(Calendar.DAY_OF_MONTH);    //可用
-        toast("m:"+mMonth);
+        //toast("m:"+mMonth);
 
         query.addWhereEqualTo("master", user);  // 查询当前用户的所有日程
         query.addWhereEqualTo("year", mYear);

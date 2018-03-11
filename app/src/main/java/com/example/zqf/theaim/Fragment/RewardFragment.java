@@ -81,7 +81,7 @@ public class RewardFragment extends Fragment {
             public void done(List<Reward> object, BmobException e) {
                 if(e==null){;
                     rewardList=object;                        //获取传递数据成功
-                    toast(object.get(1).getContent().toString());               //获取正确
+                    //toast(object.get(1).getContent().toString());               //获取正确
                     adapter=new RewardAdapter(getActivity(),R.layout.fragment_re_item,rewardList);     //设置适配器
                     listView.setAdapter(adapter);               //出错
 

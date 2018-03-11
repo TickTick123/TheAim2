@@ -47,6 +47,7 @@ public class CalendarFragment extends TodayFragment{
     public ListView listView;
     View view;
     Toolbar toolbar;
+    int month;
 
     public CalendarFragment() {
 
@@ -54,18 +55,19 @@ public class CalendarFragment extends TodayFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        final Calendar c=Calendar.getInstance();
+        month=c.get(Calendar.MONTH)+1;
+        toolbar.setTitle(month + "月");
 
         view = inflater.inflate(R.layout.fragment_calendar, container, false);
         monthDateView = (MonthDateView) view.findViewById(R.id.monthDateView);
         monthDateView.setDateClick(new MonthDateView.DateClick() {
             public void onClickOnDate() {
 
-                int month;
+
                 month = monthDateView.getmSelMonth() + 1;
                 Toast.makeText(getContext(), monthDateView.getmSelYear() + "年" + month + "月" + monthDateView.getmSelDay() + "日", Toast.LENGTH_SHORT).show();
 
-                // toolbar = (Toolbar) view.getA().findViewById(R.id.toolbar);
-                //setSupportActionBar(toolbar);
                 toolbar.setTitle(month + "月");
 
                 //切换日期的listview

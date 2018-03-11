@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
 
     static AimFragment  fragment;
     private int num;              //标记目前所在fragment
-    Toolbar toolbar;
+    static Toolbar toolbar;
     User user;
 
     @Override
@@ -182,14 +182,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart(){
         super.onStart();
-        //toast("和和"+num);                //无问题
         if(num==0){
-            toast("今天"+num);
-            replaceFragment(new TodayFragment());           //有问题
+            replaceFragment(new TodayFragment());
         }
         if(num==1){
-            toast("今天"+num);
-            replaceFragment(new TodayFragment());           //有问题
+            replaceFragment(new TodayFragment());
         }
         if (num==2){
             fragment=new AimFragment();
@@ -204,31 +201,6 @@ public class MainActivity extends AppCompatActivity
         if (num==5){
             replaceFragment(new RewardFragment());
         }
-        //toast("和和"+num);                //无问题
-    }
-
-    @Override
-    protected void onRestart(){             //调回界面的方法
-        super.onRestart();
-
-//        if(num==1){
-//            toast("今天"+num);                        //没问题
-////            replaceFragment(new TodayFragment());           //有问题
-//        }
-//        if (num==2){
-//            fragment=new AimFragment();
-//            replaceFragment(fragment);
-//        }
-//        if (num==3){
-//            //replaceFragment(new ScheduleFragment());
-//        }
-//        if (num==4){
-//            replaceFragment(new CalendarFragment());
-//        }
-//        if (num==5){
-//            replaceFragment(new RewardFragment());
-//        }
-//        toast("和和"+num);                //无问题
 
     }
 
@@ -240,6 +212,9 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();
     }
 
+    static public void getMonth(int i){
+        toolbar.setTitle(i);
+    }
     public void toast(String toast) {           //Toast便捷使用方法
         Toast.makeText(this, toast, Toast.LENGTH_LONG).show();
     }

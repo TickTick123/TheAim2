@@ -35,7 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
                 User user = new User();                   //  bmob注册
                 user.setUsername(name.getText().toString());
                 user.setPassword(password.getText().toString());
-                user.setRewardpoint(10);
+                user.setRewardpoint(0);
                 user.setScheduleNumber(0);
                 user.setDoscheduleNumber(0);
 

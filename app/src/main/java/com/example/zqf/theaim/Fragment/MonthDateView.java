@@ -1,10 +1,12 @@
 package com.example.zqf.theaim.Fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -14,8 +16,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.zqf.theaim.MainActivity;
+import com.example.zqf.theaim.R;
+
 import java.util.Calendar;
 import java.util.List;
+
+import static com.example.zqf.theaim.MainActivity.getMonth;
 
 /**
  * Created by Administrator on 2018/2/24.
@@ -42,6 +49,8 @@ public class MonthDateView extends View {
     private int mCircleColor = Color.parseColor("#ff0000");  //有事项的日期设为红色标记
     private List<Integer> daysHasThingList;  //链表存储有事务的日期
     private GestureDetector detector;
+
+    Toolbar toolbar;
 
     public MonthDateView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -223,6 +232,11 @@ public class MonthDateView extends View {
         }else{
             month = month-1;
         }
+        //toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //toolbar.setTitle(month + "月");
+        //getMonth(month);
+
+
         setSelectYearMonth(year,month,day);
         invalidate();
     }
@@ -493,4 +507,6 @@ public class MonthDateView extends View {
                 return -1;
         }
     }
+
+
 }
