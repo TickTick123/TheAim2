@@ -20,19 +20,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.zqf.theaim.Bean.User;
 import com.example.zqf.theaim.Fragment.AimFragment;
 import com.example.zqf.theaim.Fragment.CalendarFragment;
 import com.example.zqf.theaim.Fragment.RewardFragment;
 import com.example.zqf.theaim.Fragment.ScheduleFragment;
 import com.example.zqf.theaim.Fragment.TodayFragment;
 
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UpdateListener;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
     static AimFragment  fragment;
-    private int num=0;              //标记目前所在fragment
+    private int num;              //标记目前所在fragment
     Toolbar toolbar;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        num=0;
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);           //悬浮按钮用于日程添加
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +68,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //user = BmobUser.getCurrentUser(User.class);        //bmob查询当前缓存用户
+        user = BmobUser.getCurrentUser(User.class);        //bmob查询当前缓存用
 
     }
 
@@ -97,11 +104,11 @@ public class MainActivity extends AppCompatActivity
 
             return true;
         }
-//        if (id == R.id.action_add_reward) {               //菜单添加奖励按钮相应
-//
-//
-//            return true;
-//        }
+        if (id == R.id.action_add_reward) {               //菜单添加奖励按钮相应
+
+            BmobUser.logOut();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -175,13 +182,29 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart(){
         super.onStart();
-        toast("和和"+num);                //无问题
+        //toast("和和"+num);                //无问题
+        if(num==0){
+            toast("今天"+num);
+            replaceFragment(new TodayFragment());           //有问题
+        }
+        if(num==1){
+            toast("今天"+num);
+            replaceFragment(new TodayFragment());           //有问题
+        }
+        if (num==2){
+            fragment=new AimFragment();
+            replaceFragment(fragment);
+        }
         if (num==3){
             replaceFragment(new ScheduleFragment());
         }
-        if (num==1){
-            replaceFragment(new TodayFragment());
+        if (num==4){
+            replaceFragment(new CalendarFragment());
         }
+        if (num==5){
+            replaceFragment(new RewardFragment());
+        }
+        //toast("和和"+num);                //无问题
     }
 
     @Override

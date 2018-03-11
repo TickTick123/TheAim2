@@ -27,7 +27,23 @@
         android:layout_height="50dp"
         android:text="确定添加奖励"
         android:textColor="#FFF"
+        android:background="#0099ff" />
+
+    <EditText
+        android:id="@+id/aim_content"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:singleLine="true"
+        android:hint="目标名称"/>
+    <Button
+        android:id="@+id/aim_commit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="确定添加目标"
+        android:textColor="#FFF"
         android:background="#0099ff"
         />
+
 
 </LinearLayout>

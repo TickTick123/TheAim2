@@ -21,10 +21,18 @@ public class User extends BmobUser {
 
 
 	private int scheduleNumber;     //日程数
-	private int completedscheduleNumber;  //已完成日程数
+	private int doscheduleNumber;  //已完成日程数
 	private int rewardpoint;   //奖励点
 	private Boolean state; 		     // 状态
 	private BmobFile picUser; 	// 头像
+
+	public int getDoscheduleNumber() {
+		return doscheduleNumber;
+	}
+
+	public void setDoscheduleNumber(int doscheduleNumber) {
+		this.doscheduleNumber = doscheduleNumber;
+	}
 
 	public int getScheduleNumber() {
 		return scheduleNumber;
@@ -34,13 +42,6 @@ public class User extends BmobUser {
 		this.scheduleNumber = scheduleNumber;
 	}
 
-	public int getCompletedscheduleNumber() {
-		return completedscheduleNumber;
-	}
-
-	public void setCompletedscheduleNumber(int completedscheduleNumber) {
-		this.completedscheduleNumber = completedscheduleNumber;
-	}
 
 	public int getRewardpoint() {
 		return rewardpoint;

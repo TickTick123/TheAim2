@@ -179,6 +179,7 @@ public class AddScheduleActivity extends AppCompatActivity {
     }
 
     public void SaveRecord(String objectId,Schedule schedule){
+        schedule.setMastergoal("wqes");
         schedule.save(new SaveListener<String>() {
             @Override
             public void done(String objectId,BmobException e) {

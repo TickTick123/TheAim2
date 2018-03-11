@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -128,9 +130,13 @@ public class AimFragment extends Fragment {
         @Override
         public boolean onChildClick(ExpandableListView parent, View v,
                                     int groupPosition, int childPosition, long id) {
-            String str = "choose"+groupPosition+"-"+childPosition;
-            Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
-           return false;
+            String str = (String)adapter.getChild(groupPosition, childPosition);
+           // String str = "choose"+groupPosition+"-"+childPosition;
+            Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();                  //跳转对应日程
+
+            replaceFragment(new SchAimFragment(str));
+
+            return false;
         }
     }
 
@@ -269,4 +275,12 @@ public class AimFragment extends Fragment {
        editor.commit();
         //  editor.clear().commit();
     }
+
+    private void replaceFragment(Fragment fragment){                    //fragment切换
+        FragmentManager fm=getFragmentManager();              //新的fragment的不同之处
+        FragmentTransaction transaction=fm.beginTransaction();      //fragment控制器
+        transaction.replace(R.id.content,fragment);
+        transaction.commit();
+    }
+
 }

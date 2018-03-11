@@ -32,12 +32,14 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){                        //注册按钮相应
 
-                User bu = new User();                   //  bmob注册
-                bu.setUsername(name.getText().toString());
-                bu.setPassword(password.getText().toString());
-                bu.setRewardpoint(10);
+                User user = new User();                   //  bmob注册
+                user.setUsername(name.getText().toString());
+                user.setPassword(password.getText().toString());
+                user.setRewardpoint(10);
+                user.setScheduleNumber(0);
+                user.setDoscheduleNumber(0);
 
-                bu.signUp(new SaveListener<User>() {
+                user.signUp(new SaveListener<User>() {
                     @Override
                     public void done(User s, BmobException e) {
                         if(e==null){

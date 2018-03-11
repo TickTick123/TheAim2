@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.zqf.theaim.Bean.User;
 
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.LogInListener;
 
