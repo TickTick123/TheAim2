@@ -35,6 +35,8 @@ public class RegisterActivity extends AppCompatActivity {
                 User bu = new User();                   //  bmob注册
                 bu.setUsername(name.getText().toString());
                 bu.setPassword(password.getText().toString());
+                bu.setRewardpoint(10);
+
                 bu.signUp(new SaveListener<User>() {
                     @Override
                     public void done(User s, BmobException e) {

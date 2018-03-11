@@ -20,9 +20,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.zqf.theaim.Fragment.AddReDialogFragment;
 import com.example.zqf.theaim.Fragment.AimFragment;
 import com.example.zqf.theaim.Fragment.CalendarFragment;
+import com.example.zqf.theaim.Fragment.RewardFragment;
 import com.example.zqf.theaim.Fragment.ScheduleFragment;
 import com.example.zqf.theaim.Fragment.TodayFragment;
 
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity
 
                 //BmobUser.logOut();   //清除缓存用户对象，既退出
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                      //  .setAction("Action", null).show();
+                //  .setAction("Action", null).show();
             }
         });
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -90,20 +90,18 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_add_aim) {                   //菜单添加目标按钮相应
+        if (id == R.id.action_add_aim) {                   //菜单添加奖励，目标按钮相应
 
-
-
-            return true;
-        }
-        if (id == R.id.action_add_reward) {               //菜单添加奖励按钮相应
-
-            FragmentManager fm=getSupportFragmentManager();
-            AddReDialogFragment addReDialogFragment=new AddReDialogFragment();
-            addReDialogFragment.show(fm,"re_dialog");
+            Intent mainIntent=new Intent(MainActivity.this,AddReAimActivity.class);
+            startActivity(mainIntent);
 
             return true;
         }
+//        if (id == R.id.action_add_reward) {               //菜单添加奖励按钮相应
+//
+//
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -120,7 +118,7 @@ public class MainActivity extends AppCompatActivity
             toolbar.setTitle("今天");
             num=1;
 
-        } else if (id == R.id.nav_gallery) {//目标箱
+        } else if (id == R.id.nav_gallery) {                    //目标箱
             fragment=new AimFragment();
             replaceFragment(fragment);
             toolbar.setTitle("目标箱");
@@ -159,13 +157,12 @@ public class MainActivity extends AppCompatActivity
             num=4;
 
         } else if (id == R.id.nav_share) {                      //奖励箱
+            replaceFragment(new RewardFragment());
             toolbar.setTitle("奖励箱");
             num=5;
 
-
-
         }
-//        else if (id == R.id.nav_send) {
+//        else if (id == R.id.nav_send) {                       //备忘录
 //
 //        }
 
@@ -174,6 +171,44 @@ public class MainActivity extends AppCompatActivity
         return true;
 
     }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        toast("和和"+num);                //无问题
+        if (num==3){
+            replaceFragment(new ScheduleFragment());
+        }
+        if (num==1){
+            replaceFragment(new TodayFragment());
+        }
+    }
+
+    @Override
+    protected void onRestart(){             //调回界面的方法
+        super.onRestart();
+
+//        if(num==1){
+//            toast("今天"+num);                        //没问题
+////            replaceFragment(new TodayFragment());           //有问题
+//        }
+//        if (num==2){
+//            fragment=new AimFragment();
+//            replaceFragment(fragment);
+//        }
+//        if (num==3){
+//            //replaceFragment(new ScheduleFragment());
+//        }
+//        if (num==4){
+//            replaceFragment(new CalendarFragment());
+//        }
+//        if (num==5){
+//            replaceFragment(new RewardFragment());
+//        }
+//        toast("和和"+num);                //无问题
+
+    }
+
 
     private void replaceFragment(Fragment fragment){                    //fragment切换
             FragmentManager fm=getSupportFragmentManager();              //新的fragment的不同之处

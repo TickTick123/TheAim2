@@ -68,7 +68,8 @@
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ModifyScheduleActivity"></activity>
+        <activity android:name=".ModifyScheduleActivity" />
+        <activity android:name=".AddReAimActivity"></activity>
     </application>
 
 </manifest>

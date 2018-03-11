@@ -239,6 +239,7 @@ public class ModifyScheduleActivity extends AddScheduleActivity {
                 }
             }
         });
+
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

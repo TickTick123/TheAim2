@@ -1,12 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.zqf.theaim.Fragment.AddReDialogFragment">
+    tools:context="com.example.zqf.theaim.AddReAimActivity">
 
-    <!-- TODO: Update blank fragment layout -->
     <EditText
         android:id="@+id/re_content"
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
         android:id="@+id/re_commit"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="@string/sure"
+        android:text="确定添加奖励"
         android:textColor="#FFF"
         android:background="#0099ff"
         />
