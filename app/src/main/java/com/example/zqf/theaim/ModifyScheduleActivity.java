@@ -41,6 +41,9 @@ public class ModifyScheduleActivity extends AddScheduleActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_aim);
 
+//        toast(user.getScheduleNumber()+"");
+//        toast(user.getDoscheduleNumber()+"");
+
         textView = (TextView)findViewById(R.id.aim_time);
         state = (ImageButton)findViewById(R.id.state_btn);
         title = findViewById(R.id.aim_title);
@@ -185,9 +188,15 @@ public class ModifyScheduleActivity extends AddScheduleActivity {
                 {
                     state.setBackgroundResource(R.drawable.square_ok);
                     schedule.setDone("true");
+//                    int Done = user.getDoscheduleNumber();
+//                    user.setDoscheduleNumber(Done + 1);
+//                    SaveUserRecord(user.getObjectId(),user);
                 }else if(schedule.getDone().equals("true")){
                     state.setBackgroundResource(R.drawable.square);
                     schedule.setDone("false");
+//                    int Done = user.getDoscheduleNumber();
+//                    user.setDoscheduleNumber(Done - 1);
+//                    SaveUserRecord(user.getObjectId(),user);
                 }
             }
         });
@@ -218,16 +227,6 @@ public class ModifyScheduleActivity extends AddScheduleActivity {
     }
 
     public void SaveRecord(String objectId,Schedule schedule){
-//        schedule.save(new SaveListener<String>() {
-//            @Override
-//            public void done(String objectId,BmobException e) {
-//                if(e==null){
-//                    Toast.makeText(getApplication(),"修改数据成功，返回objectId为：" + objectId,Toast.LENGTH_LONG).show();
-//                }else{
-//                    Toast.makeText(getApplication(),"创建数据失败：" + e.getMessage(),Toast.LENGTH_LONG).show();      //hahaha
-//                }
-//            }
-//        });
         String id = schedule.getObjectId();
         schedule.update(id, new UpdateListener() {
             @Override
@@ -236,6 +235,22 @@ public class ModifyScheduleActivity extends AddScheduleActivity {
                         Toast.makeText(getApplication(),"修改数据成功" ,Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(getApplication(),"创建数据失败：" + e.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+    }
+
+    //用户user更新
+
+    public void SaveUserRecord(String id,User user){
+        user.update(id, new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    Toast.makeText(getApplication(),"修改数据成功" ,Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplication(),"创建数据失败：" + e.getMessage(),Toast.LENGTH_LONG).show();
                 }
             }
         });

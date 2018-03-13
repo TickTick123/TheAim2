@@ -50,7 +50,7 @@ public class MonthDateView extends View {
     private List<Integer> daysHasThingList;  //链表存储有事务的日期
     private GestureDetector detector;
 
-    Toolbar toolbar;
+    private  Toolbar toolbar;
 
     public MonthDateView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -93,11 +93,11 @@ public class MonthDateView extends View {
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                 if (e1.getX() - e2.getX() > 120) {
-                    // 像左滑动
+                    // 像右滑动 上个月
                     enterPrevMonth();
                     return true;
                 } else if (e1.getX() - e2.getX() < -120) {
-                    // 向右滑动
+                    // 向左滑动 下个月
                     enterNextMonth();
                     return true;
                 }
@@ -171,6 +171,7 @@ public class MonthDateView extends View {
             if (tv_week != null) {
                 tv_week.setText("第" + weekRow + "周");
             }
+
         }
     }
 
@@ -216,8 +217,6 @@ public class MonthDateView extends View {
     }
 
 
-
-
     private void enterNextMonth() {
         int year = mSelYear;
         int month = mSelMonth;
@@ -232,10 +231,6 @@ public class MonthDateView extends View {
         }else{
             month = month-1;
         }
-        //toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //toolbar.setTitle(month + "月");
-        //getMonth(month);
-
 
         setSelectYearMonth(year,month,day);
         invalidate();
@@ -294,48 +289,6 @@ public class MonthDateView extends View {
         if (dateClick != null) {
             dateClick.onClickOnDate();
         }
-    }
-
-    /**
-     * 左点击，日历向后翻页
-     */
-    public void onLeftClick() {
-        int year = mSelYear;
-        int month = mSelMonth;
-        int day = mSelDay;
-        if (month == 0) {//若果是1月份，则变成12月份
-            year = mSelYear - 1;
-            month = 11;
-        } else if (getMonthDays(year, month) == day) {
-            //如果当前日期为该月最后一点，当向前推的时候，就需要改变选中的日期
-            month = month - 1;
-            day = getMonthDays(year, month);
-        } else {
-            month = month - 1;
-        }
-        setSelectYearMonth(year, month, day);
-        invalidate();
-    }
-
-    /**
-     * 右点击，日历向前翻页
-     */
-    public void onRightClick() {
-        int year = mSelYear;
-        int month = mSelMonth;
-        int day = mSelDay;
-        if (month == 11) {//若果是12月份，则变成1月份
-            year = mSelYear + 1;
-            month = 0;
-        } else if (getMonthDays(year, month) == day) {
-            //如果当前日期为该月最后一点，当向前推的时候，就需要改变选中的日期
-            month = month + 1;
-            day = getMonthDays(year, month);
-        } else {
-            month = month + 1;
-        }
-        setSelectYearMonth(year, month, day);
-        invalidate();
     }
 
     /**

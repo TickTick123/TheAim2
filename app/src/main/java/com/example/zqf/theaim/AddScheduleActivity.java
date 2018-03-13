@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,11 +25,15 @@ import com.example.zqf.theaim.Bean.Schedule;
 import com.example.zqf.theaim.Bean.User;
 import com.example.zqf.theaim.Fragment.ScheduleFragment;
 
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 public class AddScheduleActivity extends AppCompatActivity {
+
 
     private TextView textView;
     private EditText title;
@@ -36,6 +41,7 @@ public class AddScheduleActivity extends AppCompatActivity {
     private ImageButton pointbtn;
     private  ImageButton state;
     Schedule schedule = new Schedule();
+    User user;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -58,6 +64,9 @@ public class AddScheduleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        user= BmobUser.getCurrentUser(User.class);
+
+
         schedule.setDone("false");   //初始状态为未完成
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);  //显示返回箭头
@@ -178,6 +187,7 @@ public class AddScheduleActivity extends AppCompatActivity {
         return true;
     }
 
+    //日程添加
     public void SaveRecord(String objectId,Schedule schedule){
         schedule.setMastergoal("wqes");
         schedule.save(new SaveListener<String>() {
@@ -192,6 +202,23 @@ public class AddScheduleActivity extends AppCompatActivity {
         });
     }
 
+    //用户user更新
+
+    public void SaveUserRecord(String id,User user){
+        user.update(id, new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    Toast.makeText(getApplication(),"修改数据成功" ,Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplication(),"创建数据失败：" + e.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+    }
+
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -199,10 +226,15 @@ public class AddScheduleActivity extends AppCompatActivity {
                     this.finish();
                     return false;
                 }else{
-                    User user= BmobUser.getCurrentUser(User.class);        //bmob查询当前缓存;
+//                    User user= BmobUser.getCurrentUser(User.class);        //bmob查询当前缓存;
                     schedule.setMaster(user);
-                    this.finish();
+                    int i = user.getScheduleNumber();
+                    user.setScheduleNumber(i+1);
+//                    user.setDoscheduleNumber(4);
+//                    user.setScheduleNumber(7);
+                    SaveUserRecord(user.getObjectId(),user);
                     SaveRecord(schedule.getObjectId(),schedule);
+                    this.finish();
                     return false;
                 }
             default:
@@ -210,15 +242,10 @@ public class AddScheduleActivity extends AppCompatActivity {
         }
     }
 
-    private void replaceFragment(Fragment fragment){                    //fragment切换
-        FragmentManager fm=getSupportFragmentManager();              //新的fragment的不同之处
-        FragmentTransaction transaction=fm.beginTransaction();      //fragment控制器
-        transaction.replace(R.id.content,fragment);
-        transaction.commit();
-    }
-
     public void toast(String toast) {                   //Fragment里面的Toast便捷使用方法
         Toast.makeText(this, toast, Toast.LENGTH_LONG).show();
     };
+
+
 }
 

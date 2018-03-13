@@ -63,6 +63,11 @@
             android:label="@string/settime"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".PersonalCenterActivity"
+            android:exported="true"
+            android:label="个人中心"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="今天"

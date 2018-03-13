@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.zqf.theaim.Bean.User;
@@ -32,7 +33,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener{
 
 
     static AimFragment  fragment;
@@ -51,15 +52,16 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent mainIntent=new Intent(MainActivity.this,AddScheduleActivity.class);
                 startActivity(mainIntent);
-
                 //BmobUser.logOut();   //清除缓存用户对象，既退出
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 //  .setAction("Action", null).show();
             }
         });
+
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -110,6 +112,10 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
+//        if(id == R.id.head){
+//            Intent intent=new Intent(MainActivity.this,AddReAimActivity.class);
+//            startActivity(intent);
+//        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -180,24 +186,24 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onStart(){
+    protected void onStart(){           //为什么刚开运行了Schedule的语法运行了
         super.onStart();
         if(num==0){
             replaceFragment(new TodayFragment());
-        }
+        }else
         if(num==1){
             replaceFragment(new TodayFragment());
-        }
+        }else
         if (num==2){
             fragment=new AimFragment();
             replaceFragment(fragment);
-        }
+        }else
         if (num==3){
             replaceFragment(new ScheduleFragment());
-        }
+        }else
         if (num==4){
             replaceFragment(new CalendarFragment());
-        }
+        }else
         if (num==5){
             replaceFragment(new RewardFragment());
         }
@@ -218,6 +224,12 @@ public class MainActivity extends AppCompatActivity
     public void toast(String toast) {           //Toast便捷使用方法
         Toast.makeText(this, toast, Toast.LENGTH_LONG).show();
     }
+
+    public void onClick(View v){
+        Intent intent=new Intent(this,PersonalCenterActivity.class);
+        startActivity(intent);
+    }
+
 
 
 }

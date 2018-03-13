@@ -30,20 +30,22 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link }OnListFragmentInteractionListener
  * interface.
  */
 public class ScheduleFragment extends Fragment {
 
     public List<Schedule> scheduleList=new ArrayList<>();          //数据源
     ScheduleAdapter adapter;
-    User user;
+    User user,user1;
     BmobQuery<Schedule> query;
+    int s,ds;
 
     public ScheduleFragment() {
 
@@ -57,6 +59,23 @@ public class ScheduleFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         user = BmobUser.getCurrentUser(User.class);        //bmob查询当前缓存
+
+        BmobQuery<User> query = new BmobQuery<User>();
+        query.getObject(user.getObjectId(), new QueryListener<User>() {
+            @Override
+            public void done(User object, BmobException e) {
+                if(e==null){
+                    toast("mm");
+                    user1=object;
+                    toast(user1.getScheduleNumber()+"");
+                    toast(user1.getDoscheduleNumber()+"");
+                }else{
+                    toast("失败："+e.getMessage()+","+e.getErrorCode());
+                }
+            }
+
+        });
+
 
 //        Schedule p2 = new Schedule();                       //测试
 //        p2.setMaster(user);
@@ -116,6 +135,8 @@ public class ScheduleFragment extends Fragment {
                 intent.putExtras(bundle);
                 getContext().startActivity(intent);
 
+//                toast(user.getScheduleNumber()+"");
+//                toast(user.getDoscheduleNumber()+"");
             }
         });
 
@@ -141,6 +162,15 @@ public class ScheduleFragment extends Fragment {
                             @Override
                             public void done(BmobException e) {
                                 if(e==null){
+                                    int Sum = user1.getScheduleNumber();
+                                    toast(Sum+"");
+                                    user1.setScheduleNumber(Sum - 1);
+                                    SaveUserRecord(user1.getObjectId(),user1);
+                                    if(schedule1.getDone().equals("true")){
+                                        int DoSum = user1.getDoscheduleNumber();
+                                        user1.setDoscheduleNumber(DoSum - 1);
+                                        SaveUserRecord(user1.getObjectId(),user1);
+                                    }
                                     toast("删除成功:"+schedule1.getUpdatedAt());
                                 }else{
                                     toast("删除失败：" + e.getMessage());
@@ -176,4 +206,17 @@ public class ScheduleFragment extends Fragment {
         Toast.makeText(getActivity(), toast, Toast.LENGTH_LONG).show();
     }
 
+    public void SaveUserRecord(String id,User user){
+        user.update(id, new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    Toast.makeText(getContext(),"修改数据成功" ,Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getContext(),"创建数据失败：" + e.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+    }
 }

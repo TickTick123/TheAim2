@@ -56,11 +56,12 @@ public class CalendarFragment extends TodayFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final Calendar c=Calendar.getInstance();
-        month=c.get(Calendar.MONTH)+1;
-        toolbar.setTitle(month + "月");
+
 
         view = inflater.inflate(R.layout.fragment_calendar, container, false);
         monthDateView = (MonthDateView) view.findViewById(R.id.monthDateView);
+        month=monthDateView.getmSelMonth()+1;
+        toolbar.setTitle(month + "月");
         monthDateView.setDateClick(new MonthDateView.DateClick() {
             public void onClickOnDate() {
 

@@ -12,10 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zqf.theaim.Bean.Schedule;
+import com.example.zqf.theaim.Bean.User;
 import com.example.zqf.theaim.R;
 
 import java.util.List;
 
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.UpdateListener;
 
@@ -27,6 +29,8 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
     private int resourcedId;
 
     private List<Schedule> scheduleList = null;
+
+    User user= BmobUser.getCurrentUser(User.class);
 
     public ScheduleAdapter(Context context, int textViewResourcedId, List<Schedule> object){
         super(context,textViewResourcedId,object);
@@ -43,8 +47,7 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         TextView content=(TextView)view.findViewById(R.id.content);
         TextView decribe=(TextView)view.findViewById(R.id.decribe);
 
-//        content.setText(scheduleList.get(position).getContent());
-//        decribe.setText(scheduleList.get(position).getDecribe());
+
 
         if(schedule.getDone().equals("true"))
             Tickimage.setImageResource(R.drawable.square_ok);            //完成的显示勾号
@@ -62,6 +65,9 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
 
                 if(schedule.getDone().equals("false")) {
                     schedule.setDone("true");
+                    int Done = user.getDoscheduleNumber();
+                    user.setDoscheduleNumber(Done + 1);
+                    SaveUserRecord(user.getObjectId(),user);
                     Tickimage.setImageResource(R.drawable.square_ok);        //修改图标
                     String id1 = schedule.getObjectId();
                     schedule.update(id1, new UpdateListener() {
@@ -76,6 +82,9 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
                     });
                 } else if(schedule.getDone().equals("true")){
                     schedule.setDone("false");
+                    int Done = user.getDoscheduleNumber();
+                    user.setDoscheduleNumber(Done - 1);
+                    SaveUserRecord(user.getObjectId(),user);
                     Tickimage.setImageResource(R.drawable.square);        //修改图标
                     String id1 = schedule.getObjectId();
                     schedule.update(id1, new UpdateListener() {
@@ -107,5 +116,21 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
     public void toast(String toast) {                   //Fragment里面的Toast便捷使用方法
         Toast.makeText(getContext(), toast, Toast.LENGTH_LONG).show();
     };
+
+    //用户user更新
+
+    public void SaveUserRecord(String id,User user){
+        user.update(id, new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    Toast.makeText(getContext(),"修改数据成功" ,Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getContext(),"创建数据失败：" + e.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+    }
 
 }
