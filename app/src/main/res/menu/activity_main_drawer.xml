@@ -24,10 +24,10 @@
             android:id="@+id/nav_share"
             android:icon="@drawable/coffee"
             android:title="奖励箱" />
-        <!--<item-->
-            <!--android:id="@+id/nav_send"-->
-            <!--android:icon="@drawable/notepad"-->
-            <!--android:title="备忘录" />-->
+        <item
+            android:id="@+id/nav_note"
+            android:icon="@drawable/notepad"
+            android:title="备忘录" />
     </group>
 
 

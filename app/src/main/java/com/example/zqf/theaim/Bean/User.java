@@ -15,7 +15,7 @@ public class User extends BmobUser {
 	// 父类中已经存在的属性
 	// private String objectid;
 	// private String username;手机号（可用于登录）
-	// private String password;
+	//private String password;
 	// private String mobilePhoneNumber  手机号（可用于登录）
 	// private String email;手机号（可用于登录）
 

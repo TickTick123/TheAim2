@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/add_parent"
+        android:title="添加子目标"
+        app:showAsAction="never"></item>
+    <item
+        android:id="@+id/del_parent"
+        android:title="删除父目标"
+        app:showAsAction="never"></item>
+</menu>

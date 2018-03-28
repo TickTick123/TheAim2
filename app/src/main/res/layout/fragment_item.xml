@@ -3,31 +3,56 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:descendantFocusability="blocksDescendants">
+    android:orientation="vertical"
+    android:descendantFocusability="blocksDescendants"
+    >
 
-    <ImageButton
-        android:id="@+id/tick_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:textAppearance="?attr/textAppearanceListItem"
-        app:srcCompat="@drawable/square" />
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/tick_btn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="22dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            app:srcCompat="@drawable/square" />
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:maxLines="2"/>
+            android:layout_marginTop="10dp">
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:textSize="23sp"
+                android:textStyle="bold"
+                android:textColor="#000099"
+                android:maxLines="2"/>
+            <TextView
+                android:id="@+id/decribe"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="#0066CC"/>
+        </LinearLayout>
+
         <TextView
-            android:id="@+id/decribe"
+            android:id="@+id/belong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp" />
+            android:layout_gravity="bottom|right"
+            android:text="日程箱"
+            android:textSize="15dp"
+            android:textColor="#9966FF"
+            android:textStyle="italic"/>
     </LinearLayout>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#cfcfcf" />
 </LinearLayout>

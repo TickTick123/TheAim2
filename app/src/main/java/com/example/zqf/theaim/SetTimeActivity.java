@@ -18,8 +18,10 @@ import java.util.Calendar;
 
 public class SetTimeActivity extends AppCompatActivity {
     private Calendar calendar;
-    //private MonthDateView monthDateView;
+    MonthDateView monthDateView;
     private TextView clicktime;
+    private TextView Month;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,6 +34,9 @@ public class SetTimeActivity extends AppCompatActivity {
 
         calendar = Calendar.getInstance();
         final TextView textView = (TextView)findViewById(R.id.set_time);
+        Month = (TextView)findViewById(R.id.month);
+        monthDateView = (MonthDateView)findViewById(R.id.monthDateView);
+        monthDateView.setTextView(Month);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

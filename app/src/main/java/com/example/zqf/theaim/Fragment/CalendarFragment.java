@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CalendarView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zqf.theaim.Adapter.ScheduleAdapter;
@@ -27,6 +28,7 @@ import com.example.zqf.theaim.ModifyScheduleActivity;
 import com.example.zqf.theaim.R;
 import com.example.zqf.theaim.Util;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -45,8 +47,10 @@ import static com.example.zqf.theaim.Fragment.MonthDateView.getMonthDays;
 public class CalendarFragment extends TodayFragment{
     private MonthDateView monthDateView;
     public ListView listView;
+
     View view;
     Toolbar toolbar;
+    private TextView Month;
     int month;
 
     public CalendarFragment() {
@@ -56,20 +60,28 @@ public class CalendarFragment extends TodayFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final Calendar c=Calendar.getInstance();
-
-
         view = inflater.inflate(R.layout.fragment_calendar, container, false);
+
+//        List<Integer> list = new ArrayList<Integer>();
+//        for(int i=0;i<scheduleList.size();i++){
+//            list.add(scheduleList.get(i).getDay());
+//        }
         monthDateView = (MonthDateView) view.findViewById(R.id.monthDateView);
-        month=monthDateView.getmSelMonth()+1;
-        toolbar.setTitle(month + "月");
+        //toolbar.setTitle(monthDateView.getmSelMonth()+1+"月");
+        //toast(monthDateView.Smonth+1+"月");
+        //toast(monthDateView.getmSelMonth()+"月");
+        Month = (TextView)view.findViewById(R.id.month);
+        monthDateView.setTextView(Month);
+        //monthDateView.setCTime(2018,3,28);
+//        monthDateView.setDaysHasThingList(list);
+
+
         monthDateView.setDateClick(new MonthDateView.DateClick() {
             public void onClickOnDate() {
-
-
                 month = monthDateView.getmSelMonth() + 1;
                 Toast.makeText(getContext(), monthDateView.getmSelYear() + "年" + month + "月" + monthDateView.getmSelDay() + "日", Toast.LENGTH_SHORT).show();
 
-                toolbar.setTitle(month + "月");
+                //toolbar.setTitle(month + "月");
 
                 //切换日期的listview
                 query = new BmobQuery<Schedule>();              //按条件查找
@@ -83,7 +95,6 @@ public class CalendarFragment extends TodayFragment{
                     public void done(List<Schedule> object, BmobException e) {
                         if(e==null){;
                             scheduleList=object;                        //获取传递数据成功
-
                             adapter=new ScheduleAdapter(getActivity(),R.layout.fragment_item,scheduleList);     //设置适配器
                             listView.setAdapter(adapter);
 
@@ -95,6 +106,11 @@ public class CalendarFragment extends TodayFragment{
 
             }
         });
+
+
+
+
+
                     //listview添加
         listView=(ListView) view.findViewById(R.id.calendar_listview);
         initdata();                 //添加数据
@@ -178,6 +194,7 @@ public class CalendarFragment extends TodayFragment{
             }
         });
 
+
         // Inflate the layout for this fragment
         return view;
     }
@@ -190,8 +207,6 @@ public class CalendarFragment extends TodayFragment{
             toolbar = (Toolbar) mainActivity.findViewById(R.id.toolbar);
         }
     }
-
-
 
 }
 

@@ -2,18 +2,24 @@ package com.example.zqf.theaim;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -22,6 +28,15 @@ import android.widget.Toast;
 import com.example.zqf.theaim.Bean.Schedule;
 import com.example.zqf.theaim.Bean.User;
 import com.example.zqf.theaim.Fragment.ScheduleFragment;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -35,25 +50,81 @@ public class ModifyScheduleActivity extends AddScheduleActivity {
     private ImageButton pointbtn;
     private  ImageButton state;
     private Schedule schedule;
+    private Button actionbar_btn;
+
+//    public static List<String> parentList;
+//    public static List<String> SecAim;
+//    public static Map<String,List<String>> map;
+//    public static SharedPreferences sp;
+//    public static SharedPreferences.Editor editor;
+//    public static String dataMap,dataParentList;
+//    String groupName,sgroupName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_aim);
 
-//        toast(user.getScheduleNumber()+"");
-//        toast(user.getDoscheduleNumber()+"");
+        setCustomActionBar();
+        //toast(user.getScheduleNumber()+"");
+        //toast(user.getDoscheduleNumber()+"");
 
         textView = (TextView)findViewById(R.id.aim_time);
         state = (ImageButton)findViewById(R.id.state_btn);
         title = findViewById(R.id.aim_title);
         describe = findViewById(R.id.aim_describe);
         pointbtn = (ImageButton) findViewById(R.id.point_btn);
+        actionbar_btn = (Button)findViewById(R.id.schedule_title_btn);
+
+        SecAim = new ArrayList<String>();
+        super.newfile();
+        for(int i=0;i<parentList.size();i++){
+            groupName=parentList.get(i);
+            for(int j=0;j<map.get(groupName).size();j++){
+                sgroupName=map.get(groupName).get(j);
+                SecAim.add((sgroupName));
+            }
+        }
+        actionbar_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                final AlertDialog.Builder builder = new AlertDialog.Builder(ModifyScheduleActivity.this);//实例化builder
+                builder.setIcon(R.mipmap.ic_launcher);//设置图标
+                builder.setTitle("移动到清单");//设置标题
+                final String[] str= new String[SecAim.size()];
+                for (int i = 0; i < SecAim.size(); i++) {
+                    str[i] = SecAim.get(i);
+                }
+
+                //设置单选列表
+                builder.setSingleChoiceItems(str, 0, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        actionbar_btn.setText(str[which]);
+                        schedule.setMastergoal(str[which]);
+                    }
+                });
+                //创建对话框
+                AlertDialog dialog = builder.create();
+                //设置确定按钮
+                dialog.setButton(DialogInterface.BUTTON_POSITIVE,"确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();//显示对话框
+            }
+        });
+
 
         Intent intent =getIntent();
         Bundle bundle=intent.getExtras();
         if(bundle!=null) {
             schedule = (Schedule) bundle.getSerializable("key");       //传来的schedule对象
+            actionbar_btn.setText(schedule.getMastergoal());
         }
         //toast("ss"+schedule.getMonth()+schedule.getContent());
 
@@ -183,20 +254,20 @@ public class ModifyScheduleActivity extends AddScheduleActivity {
         state.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toast(schedule.getDone().toString());
+                //toast(schedule.getDone().toString());
                 if(schedule.getDone().equals("false"))
                 {
                     state.setBackgroundResource(R.drawable.square_ok);
                     schedule.setDone("true");
-//                    int Done = user.getDoscheduleNumber();
-//                    user.setDoscheduleNumber(Done + 1);
-//                    SaveUserRecord(user.getObjectId(),user);
+                    int Done = user.getDoscheduleNumber();
+                    user.setDoscheduleNumber(Done + 1);
+                    SaveUserRecord(user.getObjectId(),user);
                 }else if(schedule.getDone().equals("true")){
                     state.setBackgroundResource(R.drawable.square);
                     schedule.setDone("false");
-//                    int Done = user.getDoscheduleNumber();
-//                    user.setDoscheduleNumber(Done - 1);
-//                    SaveUserRecord(user.getObjectId(),user);
+                    int Done = user.getDoscheduleNumber();
+                    user.setDoscheduleNumber(Done - 1);
+                    SaveUserRecord(user.getObjectId(),user);
                 }
             }
         });
@@ -254,7 +325,31 @@ public class ModifyScheduleActivity extends AddScheduleActivity {
                 }
             }
         });
+    }
 
+    private void setCustomActionBar() {
+        //ActionBar.LayoutParams lp =new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT, Gravity.LEFT);
+        View mActionBarView = LayoutInflater.from(this).inflate(R.layout.actionbar_modify, null);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setCustomView(mActionBarView);
+        //actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+    }
+
+
+    //保存数据到文件
+    public static void saveData(){
+        JSONObject jsonObject = new JSONObject(map);
+        dataMap = jsonObject.toString();
+        dataParentList = parentList.toString();
+
+        editor = sp.edit();
+        editor.putString("dataMap", dataMap);
+        editor.putString("dataParentList", dataParentList);
+        editor.commit();
+        //  editor.clear().commit();
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -279,5 +374,8 @@ public class ModifyScheduleActivity extends AddScheduleActivity {
 
     public void toast(String toast) {                   //Fragment里面的Toast便捷使用方法
         Toast.makeText(this, toast, Toast.LENGTH_LONG).show();
-    };
+    }
+
+
+
 }

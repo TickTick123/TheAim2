@@ -6,7 +6,8 @@
     android:name="com.example.zqf.theaim.Fragment.ScheduleFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.zqf.theaim.Fragment.ScheduleFragment">
+    tools:context="com.example.zqf.theaim.Fragment.ScheduleFragment"
+    >
 
     <ListView
         android:id="@+id/list1"

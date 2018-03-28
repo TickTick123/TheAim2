@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TheAim</string>
+    <string name="app_name">我行我塑</string>
 
     <string name="login_1">用户名/手机号</string>
     <string name="login_2">请输入密码</string>

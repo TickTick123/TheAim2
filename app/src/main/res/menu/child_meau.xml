@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/add_child"
+        android:title="添加日程"
+        app:showAsAction="never"></item>
+    <item
+        android:id="@+id/del_child"
+        android:title="删除子目标"
+        app:showAsAction="never"></item>
+</menu>

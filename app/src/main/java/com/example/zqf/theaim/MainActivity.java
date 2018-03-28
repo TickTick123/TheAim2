@@ -2,7 +2,11 @@ package com.example.zqf.theaim;
 
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 
@@ -19,17 +23,26 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.zqf.theaim.Bean.User;
 import com.example.zqf.theaim.Fragment.AimFragment;
 import com.example.zqf.theaim.Fragment.CalendarFragment;
+import com.example.zqf.theaim.Fragment.MonthDateView;
+import com.example.zqf.theaim.Fragment.NoteFragment;
 import com.example.zqf.theaim.Fragment.RewardFragment;
 import com.example.zqf.theaim.Fragment.ScheduleFragment;
 import com.example.zqf.theaim.Fragment.TodayFragment;
 
+import java.io.File;
+
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.DownloadFileListener;
+import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 public class MainActivity extends AppCompatActivity
@@ -41,10 +54,17 @@ public class MainActivity extends AppCompatActivity
     static Toolbar toolbar;
     User user;
 
+    private TextView user_id;
+    private TextView user_mail;
+    private ImageView user_head;
+    static String path0="/data/data/com.example.zqf.theaim/cache/bmob/head.jpg";
+    String path;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         num=0;
@@ -67,19 +87,57 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         user = BmobUser.getCurrentUser(User.class);        //bmob查询当前缓存用
+//        toast(user.getUsername());
+//        toast(user.getEmail());
+        final View headerLayout = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        user_id = (TextView)headerLayout.findViewById(R.id.User_id);
+        user_head = (ImageView)headerLayout.findViewById(R.id.head);
+        user_mail = (TextView)headerLayout.findViewById(R.id.User_mail);
+
+        user_id.setText(user.getUsername()+"");
+        user_mail.setText(user.getEmail()+"");
+
+
+        File F = new File(path0);
+        if(!F.exists()){
+            BmobQuery<User> query=new BmobQuery<>();
+            query.getObject(user.getObjectId(), new QueryListener<User>() {
+                @Override
+                public void done(User user, BmobException e) {
+                    if(e==null){
+                        download(user.getPicUser());
+                    }
+                }
+            });
+        }
+        Bitmap bt = BitmapFactory.decodeFile(path0);
+        user_head.setImageBitmap(bt);
+
+        //toast(user_id.getText().toString());
+
+        user_head.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(headerLayout.getContext(),PersonalCenterActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+
             super.onBackPressed();
         }
     }
@@ -104,11 +162,6 @@ public class MainActivity extends AppCompatActivity
             Intent mainIntent=new Intent(MainActivity.this,AddReAimActivity.class);
             startActivity(mainIntent);
 
-            return true;
-        }
-        if (id == R.id.action_add_reward) {               //菜单添加奖励按钮相应
-
-            BmobUser.logOut();
             return true;
         }
 
@@ -140,30 +193,6 @@ public class MainActivity extends AppCompatActivity
             replaceFragment(new ScheduleFragment());
             toolbar.setTitle("日程箱");
             num=3;
-
-//            Schedule p2 = new Schedule();                       //测试
-//            User user = BmobUser.getCurrentUser(User.class);
-//            p2.setMaster(user);
-//            //p2.setMastergoal();
-//            p2.setContent("ppp");
-//            p2.setDecribe("sdf");
-//            p2.setYear(2016);
-//            p2.setMouth(3);
-//            p2.setDay(2);
-//            p2.setDone("flase");
-//            p2.setTime("22sdmin");
-//            p2.save(new SaveListener<String>() {
-//                @Override
-//                public void done(String objectId,BmobException e) {
-//                    if(e==null){
-//                        toast("添加数据成功，返回objectId为："+objectId);
-//                    }else{
-//                        toast("创建数据失败：" + e.getMessage());
-//                    }
-//                }
-//            });
-
-
         } else if (id == R.id.nav_manage) {                     //日历
             replaceFragment(new CalendarFragment());
             toolbar.setTitle("日历");
@@ -173,11 +202,11 @@ public class MainActivity extends AppCompatActivity
             replaceFragment(new RewardFragment());
             toolbar.setTitle("奖励箱");
             num=5;
-
+        }else if(id == R.id.nav_note){
+            replaceFragment(new NoteFragment());
+            toolbar.setTitle("备忘录");
+            num = 6;
         }
-//        else if (id == R.id.nav_send) {                       //备忘录
-//
-//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -206,6 +235,8 @@ public class MainActivity extends AppCompatActivity
         }else
         if (num==5){
             replaceFragment(new RewardFragment());
+        }else if(num==6){
+            replaceFragment(new NoteFragment());
         }
 
     }
@@ -225,11 +256,28 @@ public class MainActivity extends AppCompatActivity
         Toast.makeText(this, toast, Toast.LENGTH_LONG).show();
     }
 
-    public void onClick(View v){
-        Intent intent=new Intent(this,PersonalCenterActivity.class);
-        startActivity(intent);
+    public void download(BmobFile picUser){
+        picUser.download((new DownloadFileListener() {
+            @Override
+            public void done(String s, BmobException e) {
+                if(e==null){
+                    //toast(s);
+                    path = s;
+                }
+            }
+
+            @Override
+            public void onProgress(Integer integer, long l) {
+
+            }
+        }));
     }
 
 
+
+//    public void onClick(View v){
+//        Intent intent=new Intent(this,PersonalCenterActivity.class);
+//        startActivity(intent);
+//    }
 
 }

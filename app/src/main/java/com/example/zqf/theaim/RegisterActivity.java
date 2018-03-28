@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.zqf.theaim.Bean.User;
 
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
@@ -17,6 +18,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText name;
     private EditText password;
     private Button regButton;
+    private BmobFile bmobFile = new BmobFile("head.jpg","","http://bmob-cdn-17620.b0.upaiyun.com/2018/03/25/4cbb16e5404ef8e880e376e5702c4945.jpg");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
                 User user = new User();                   //  bmob注册
                 user.setUsername(name.getText().toString());
                 user.setPassword(password.getText().toString());
+                user.setPicUser(bmobFile);
                 user.setRewardpoint(0);
                 user.setScheduleNumber(0);
                 user.setDoscheduleNumber(0);

@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.zqf.theaim.Bean.Schedule;
 import com.example.zqf.theaim.MainActivity;
 import com.example.zqf.theaim.R;
 
@@ -38,19 +39,23 @@ public class MonthDateView extends View {
     private int mCurrentColor = Color.parseColor("#ff0000");   //今天为红色
     private int mCurrYear, mCurrMonth, mCurrDay;   //今天日期
     private int mSelYear, mSelMonth, mSelDay;      //选中日期
+    int cYear,cMonth,cDay;
+    int dYear,dMonth,dDay;
     private int mColumnSize, mRowSize;     //行列大小
     private DisplayMetrics mDisplayMetrics;  //获取屏幕大小
     private int mDaySize = 18;
-    private TextView tv_date, tv_week;
+    Toolbar toolbar;
     private int weekRow;
     private int[][] daysString;
+    private int[][] schedays;
     private int mCircleRadius = 6;
     private DateClick dateClick;
     private int mCircleColor = Color.parseColor("#ff0000");  //有事项的日期设为红色标记
     private List<Integer> daysHasThingList;  //链表存储有事务的日期
     private GestureDetector detector;
-
-    private  Toolbar toolbar;
+    TextView Month;
+    List<Integer> one;List<Integer> two;List<Integer> three;List<Integer> four;List<Integer> five;List<Integer> six;
+    List<Integer> seven;List<Integer> eight;List<Integer> nine;List<Integer> ten;List<Integer> televe;List<Integer>twelve;
 
     public MonthDateView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -61,8 +66,6 @@ public class MonthDateView extends View {
         mCurrMonth = calendar.get(Calendar.MONTH); //获取当前月份
         mCurrDay = calendar.get(Calendar.DATE);  //获取当前天
         setSelectYearMonth(mCurrYear, mCurrMonth, mCurrDay);
-
-
 
         detector = new GestureDetector(context, new GestureDetector.OnGestureListener() {
             @Override
@@ -95,10 +98,21 @@ public class MonthDateView extends View {
                 if (e1.getX() - e2.getX() > 120) {
                     // 像右滑动 上个月
                     enterPrevMonth();
+//                    if(cMonth==mSelMonth+1){
+//                        setCTime(2018,3,28);
+//                    }else{
+//                        setCTime(0,0,0);
+//                    }
+
                     return true;
                 } else if (e1.getX() - e2.getX() < -120) {
                     // 向左滑动 下个月
                     enterNextMonth();
+//                    if(cMonth==mSelMonth+1){
+//                        setCTime(2018,3,28);
+//                    }else{
+//                        setCTime(0,0,0);
+//                    }
                     return true;
                 }
                 return false;
@@ -129,61 +143,89 @@ public class MonthDateView extends View {
     @Override
     protected void onDraw(Canvas canvas) { //绘制
         initSize();
+        //toast(cMonth+"认为缺乏热情"+cDay+"爱得起");
         daysString = new int[6][7];  //存放日历的数组
+
         mPaint.setTextSize(mDaySize * mDisplayMetrics.scaledDensity); //根据手机分辨率设置字体大小
         String dayString;
         int mMonthDays = getMonthDays(mSelYear, mSelMonth);//根据年份和月份获取本月天数
         int weekNumber = getFirstDayWeek(mSelYear, mSelMonth);//根据年份和月份获得第一天是星期几
         Log.d("DateView", "DateView:" + mSelMonth + "月1号周" + weekNumber);
-        for (int day = 0; day < mMonthDays; day++) {   //放置日期
-            dayString = (day + 1) + "";
-            int column = (day + weekNumber - 1) % 7;
-            int row = (day + weekNumber - 1) / 7;
-            daysString[row][column] = day + 1;
-            int startX = (int) (mColumnSize * column + (mColumnSize - mPaint.measureText(dayString)) / 2); //根据手机分辨率设置坐标
-            int startY = (int) (mRowSize * row + mRowSize / 2 - (mPaint.ascent() + mPaint.descent()) / 2);
-            if (dayString.equals(mSelDay + "")) {
-                //绘制背景色矩形
-                int startRecX = mColumnSize * column;
-                int startRecY = mRowSize * row;
-                int endRecX = startRecX + mColumnSize;
-                int endRecY = startRecY + mRowSize;
-                mPaint.setColor(mSelectBGColor);
-                canvas.drawRect(startRecX, startRecY, endRecX, endRecY, mPaint);
-                //记录第几行，即第几周
-                weekRow = row + 1;
-            }
-            //绘制事务圆形标志
-            drawCircle(row, column, day + 1, canvas);
-            if (dayString.equals(mSelDay + "")) {
-                mPaint.setColor(mSelectDayColor);
-            } else if (dayString.equals(mCurrDay + "") && mCurrDay != mSelDay && mCurrMonth == mSelMonth) {
-                //正常月，选中其他日期，则今日为红色
-                mPaint.setColor(mCurrentColor);
-            } else {
-                mPaint.setColor(mDayColor);
-            }
-            canvas.drawText(dayString, startX, startY, mPaint);
-            if (tv_date != null) {
-                tv_date.setText(mSelYear + "年" + (mSelMonth + 1) + "月");
-            }
 
-            if (tv_week != null) {
-                tv_week.setText("第" + weekRow + "周");
-            }
+            for (int day = 0; day < mMonthDays; day++) {   //放置日期
+                dayString = (day + 1) + "";
+                int column = (day + weekNumber - 1) % 7;
+                int row = (day + weekNumber - 1) / 7;
+                daysString[row][column] = day + 1;
+                int startX = (int) (mColumnSize * column + (mColumnSize - mPaint.measureText(dayString)) / 2); //根据手机分辨率设置坐标
+                int startY = (int) (mRowSize * row + mRowSize / 2 - (mPaint.ascent() + mPaint.descent()) / 2);
+                if (dayString.equals(mSelDay + "")) {
+                    //绘制背景色矩形
+                    int startRecX = mColumnSize * column;
+                    int startRecY = mRowSize * row;
+                    int endRecX = startRecX + mColumnSize;
+                    int endRecY = startRecY + mRowSize;
+                    mPaint.setColor(mSelectBGColor);
+                    canvas.drawRect(startRecX, startRecY, endRecX, endRecY, mPaint);
+                    //记录第几行，即第几周
+                    weekRow = row + 1;
+                }
+                //绘制事务圆形标志
+                //drawCircle(row,column,day+1,canvas);
 
-        }
+                if (dayString.equals(mSelDay + "")) {
+                    mPaint.setColor(mSelectDayColor);
+                } else if (dayString.equals(mCurrDay + "") && mCurrDay != mSelDay && mCurrMonth == mSelMonth) {
+                    //正常月，选中其他日期，则今日为红色
+                    mPaint.setColor(mCurrentColor);
+                } else {
+                    mPaint.setColor(mDayColor);
+                }
+
+
+                canvas.drawText(dayString, startX, startY, mPaint);
+
+                Month.setText(mSelMonth+1+"月");
+
+            }
     }
 
+//    public void drawCircle(int year, int month,int day, Canvas canvas) {
+//        //toast(year+"年！"+month+"月！"+day+"日！");
+//        int mMonthDays = getMonthDays(year, month-1);//根据年份和月份获取本月天数
+//        int weekNumber = getFirstDayWeek(year, month-1);//根据年份和月份获得第一天是星期几
+//        for (int cday = 0; cday < mMonthDays; cday++) {   //放置日期
+//            int schecolumn = (cday + weekNumber - 1) % 7;
+//            int scherow = (cday + weekNumber - 1) / 7;
+//            if((cday+1)==day){
+//                mPaint.setColor(mCircleColor);
+//                float circleX = (float) (mColumnSize * schecolumn + mColumnSize * 0.8);
+//                float circley = (float) (mRowSize * scherow + mRowSize * 0.2);
+//                canvas.drawCircle(circleX, circley, mCircleRadius, mPaint);
+//            }
+//
+//        }
+//    }
+
     private void drawCircle(int row, int column, int day, Canvas canvas) {
-        if (daysHasThingList != null && daysHasThingList.size() > 0) {
-            if (!daysHasThingList.contains(day)) return;
+        if (three != null && three.size() > 0) {
+            if (!three.contains(day)) return;
             mPaint.setColor(mCircleColor);
             float circleX = (float) (mColumnSize * column + mColumnSize * 0.8);
             float circley = (float) (mRowSize * row + mRowSize * 0.2);
             canvas.drawCircle(circleX, circley, mCircleRadius, mPaint);
         }
     }
+
+//    public void drawCircle(int row, int column, int month,int day, Canvas canvas) {
+//        if(day==cDay && month==cMonth) {
+//            mPaint.setColor(mCircleColor);
+//            float circleX = (float) (mColumnSize * column + mColumnSize * 0.8);
+//            float circley = (float) (mRowSize * row + mRowSize * 0.2);
+//            canvas.drawCircle(circleX, circley, mCircleRadius, mPaint);
+//        }
+//    }
+
 
     @Override
     public boolean performClick() {
@@ -231,8 +273,12 @@ public class MonthDateView extends View {
         }else{
             month = month-1;
         }
-
         setSelectYearMonth(year,month,day);
+        if(mSelMonth+1==dMonth){
+            setCTime(dYear,dMonth,dDay);
+        }else{
+            setCTime(0,0,0);
+        }
         invalidate();
     }
 
@@ -251,6 +297,11 @@ public class MonthDateView extends View {
             month = month + 1;
         }
         setSelectYearMonth(year,month,day);
+        if(mSelMonth+1==dMonth){
+            setCTime(dYear,dMonth,dDay);
+        }else{
+            setCTime(0,0,0);
+        }
         invalidate();
     }
 
@@ -268,11 +319,30 @@ public class MonthDateView extends View {
      * @param year
      * @param month
      */
-    private void setSelectYearMonth(int year, int month, int day) {
+    public void setSelectYearMonth(int year, int month, int day) {
         mSelYear = year;
         mSelMonth = month;
         mSelDay = day;
     }
+
+    public void setCTime(int year,int month,int day){
+        cYear = year;
+        cMonth = month;
+        cDay = day;
+        //toast("点确定群无"+cDay+"adqdq"+cMonth);
+    }
+
+    public void setDTime(int year,int month,int day){
+        dYear = year;
+        dMonth = month;
+        dDay = day;
+        //toast("点确定群无"+cDay+"adqdq"+cMonth);
+    }
+
+    public void getEvent1(List<Integer> list){this.one = list;}
+    public void getEvent2(List<Integer> list){this.two = list;}
+    public void setEvent3(List<Integer> list){this.three = list;}
+
 
     /**
      * 执行点击事件
@@ -307,7 +377,8 @@ public class MonthDateView extends View {
      */
     public int getmSelMonth() {
 
-        return this.mSelMonth;
+        //toast(mSelMonth+1+"");
+        return mSelMonth;
     }
 
     /**
@@ -368,11 +439,11 @@ public class MonthDateView extends View {
      * @param tv_date 显示日期
      * @param tv_week 显示周
      */
-    public void setTextView(TextView tv_date, TextView tv_week) {
-        this.tv_date = tv_date;
-        this.tv_week = tv_week;
-        invalidate();
-    }
+//    public void setTextView(TextView tv_date, TextView tv_week) {
+//        this.tv_date = tv_date;
+//        this.tv_week = tv_week;
+//        invalidate();
+//    }
 
     /**
      * 设置事务天数
@@ -426,6 +497,11 @@ public class MonthDateView extends View {
         invalidate();
     }
 
+    public void setTextView(TextView Month){
+        this.Month = Month;
+        invalidate();
+    }
+
     @SuppressLint("WrongConstant")
     public static int getFirstDayWeek(int year, int month) {
         Calendar calendar = Calendar.getInstance();
@@ -460,6 +536,10 @@ public class MonthDateView extends View {
                 return -1;
         }
     }
+
+    public void toast(String toast) {                   //Fragment里面的Toast便捷使用方法
+        Toast.makeText(getContext(), toast, Toast.LENGTH_LONG).show();
+    };
 
 
 }

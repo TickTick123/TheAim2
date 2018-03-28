@@ -1,6 +1,7 @@
 package com.example.zqf.theaim.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,14 +9,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 //
+import com.example.zqf.theaim.AddScheduleActivity;
+import com.example.zqf.theaim.MainActivity;
 import com.example.zqf.theaim.ModifyDialog;
 import com.example.zqf.theaim.MyAdapter;
 import com.example.zqf.theaim.R;
@@ -52,15 +57,6 @@ public class AimFragment extends Fragment {
         //加载fragment_aim布局和ExpandableListView控件
         view = inflater.inflate(R.layout.fragment_aim, container, false);
         expandableListView = (ExpandableListView) view.findViewById(R.id.expandablelistview);
-        //添加组图标响应点击事件
-        image_add = (ImageView) view.findViewById(R.id.image_add);
-        image_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //调用添加对话框
-                alertAddDialog(getActivity(), "新增组");
-            }
-        });
         //调用initData()方法进行组数据parentList和组对应子项map的初始化
         initData();
 
@@ -136,6 +132,7 @@ public class AimFragment extends Fragment {
 
             replaceFragment(new SchAimFragment(str));
 
+
             return false;
         }
     }
@@ -183,8 +180,7 @@ public class AimFragment extends Fragment {
         List<String> list = new ArrayList<String>();
         map.put(newGroupName, list);
         adapter.notifyDataSetChanged();
-        saveData();
-    }
+        saveData();     }
 
     //新增子项到指定组
     public static void addChild(int groupPosition, String newChildName){
@@ -282,5 +278,7 @@ public class AimFragment extends Fragment {
         transaction.replace(R.id.content,fragment);
         transaction.commit();
     }
+
+
 
 }
