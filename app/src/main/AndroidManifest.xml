@@ -92,7 +92,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ModifyScheduleActivity" />
         <activity android:name=".AddReAimActivity" />
-
+        <activity android:name=".Note_Show" />
     </application>
 
 </manifest>

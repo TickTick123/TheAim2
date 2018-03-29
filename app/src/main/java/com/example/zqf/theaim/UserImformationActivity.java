@@ -192,10 +192,6 @@ public class UserImformationActivity extends AppCompatActivity {
                             }
 
                         });
-
-                        //user.getSessionToken()
-
-
                 }
                 });
                 dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {

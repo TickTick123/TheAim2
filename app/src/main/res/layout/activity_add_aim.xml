@@ -70,4 +70,17 @@
         android:background="@null"
         android:layout_marginHorizontal="15dp"
         android:textColor="#0000ff"/>
+    <!--<Chronometer-->
+        <!--android:id="@+id/chronometer"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="right" />-->
+    <!--<Button-->
+    <!--android:id="@+id/button1"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content" />-->
+    <!--<Button-->
+        <!--android:id="@+id/button2"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
 </LinearLayout>

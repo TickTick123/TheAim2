@@ -26,5 +26,11 @@
 
     </style>
 
+    <!-- PopupWindow弹出/隐藏动画 12-28 -->
+    <style name="MyPopupWindow_anim_style"
+        parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/popupwindow_show_anim</item>
+    <item name="android:windowExitAnimation">@anim/popupwindow_hidden_anim</item>
+    </style>
 
 </resources>

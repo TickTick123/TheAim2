@@ -46,7 +46,6 @@ public class AimFragment extends Fragment {
     public static Map<String,List<String>> map;
     private ModifyDialog dialog;
     private EditText edit_modify;
-    private ImageView image_add;
     private int currentGroup,currentChild;
     public static SharedPreferences sp;
     public static SharedPreferences.Editor editor;
@@ -89,7 +88,8 @@ public class AimFragment extends Fragment {
         dataParentList = sp.getString("dataParentList", null);
 
       if(dataMap == null || dataParentList == null){
-            Toast.makeText(getActivity(),"请添加组",Toast.LENGTH_SHORT).show();//tgy的
+            //Toast.makeText(getActivity(),"请添加组",Toast.LENGTH_SHORT).show();//tgy的
+          //getView().setBackgroundDrawable(getResources().getDrawable(R.drawable.free_day));
 
         }
         else{
@@ -131,8 +131,6 @@ public class AimFragment extends Fragment {
             Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();                  //跳转对应日程
 
             replaceFragment(new SchAimFragment(str));
-
-
             return false;
         }
     }
@@ -180,7 +178,8 @@ public class AimFragment extends Fragment {
         List<String> list = new ArrayList<String>();
         map.put(newGroupName, list);
         adapter.notifyDataSetChanged();
-        saveData();     }
+        saveData();
+    }
 
     //新增子项到指定组
     public static void addChild(int groupPosition, String newChildName){

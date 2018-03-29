@@ -290,9 +290,13 @@ public class PersonalCenterActivity extends AppCompatActivity implements OnChart
             case R.id.information:
                 Intent intent = new Intent(PersonalCenterActivity.this,UserImformationActivity.class);
                 startActivity(intent);
+                return false;
             case R.id.exit:
-//                user.logOut();
-//                return true;
+                user.logOut();
+                Intent intent1 = new Intent(PersonalCenterActivity.this,LoginActivity.class);
+                startActivity(intent1);
+                finish();
+                return false;
             default:
                 return super.onOptionsItemSelected(item);
         }

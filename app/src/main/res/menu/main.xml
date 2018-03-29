@@ -7,4 +7,10 @@
         android:title="添加奖励/目标"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/action_add_note"
+        android:orderInCategory="100"
+        android:title="添加记事录"
+        app:showAsAction="never" />
+
 </menu>

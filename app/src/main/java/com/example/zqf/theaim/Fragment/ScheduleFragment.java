@@ -3,8 +3,10 @@ package com.example.zqf.theaim.Fragment;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
@@ -148,7 +150,7 @@ public class ScheduleFragment extends Fragment {
                         }
                         //monthDateView.getEvent3(Event);
                     }else if(scheduleList.size()==0){
-
+                        getView().setBackgroundDrawable(getResources().getDrawable(R.drawable.free_day));
                     }
 
                 }else{

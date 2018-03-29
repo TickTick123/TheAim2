@@ -3,6 +3,7 @@ package com.example.zqf.theaim;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -56,6 +58,7 @@ public class AddScheduleActivity extends AppCompatActivity {
     private ImageButton pointbtn;
     private  ImageButton state;
     private Button actionbar_btn;
+    private Chronometer chronometer;
 
     Schedule schedule = new Schedule();
     User user;
@@ -99,6 +102,30 @@ public class AddScheduleActivity extends AppCompatActivity {
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);  //显示返回箭头
         setContentView(R.layout.activity_add_aim);
+
+//        chronometer = (Chronometer) findViewById(R.id.chronometer);
+//        int xiaoshi = (int) ((SystemClock.elapsedRealtime() - chronometer.getBase()) / 1000 / 60);
+//        chronometer.setFormat("0"+String.valueOf(xiaoshi)+":%s");
+//
+//        Button button1 = (Button)findViewById(R.id.button1);
+//        button1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // 设置开始时间
+//                chronometer.setBase(SystemClock.elapsedRealtime());
+//                // 开始计时
+//                chronometer.start();
+//            }
+//        });
+//
+//        Button button2 = (Button)findViewById(R.id.button2);
+//        button2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                chronometer.stop();
+//                toast(chronometer.getText().toString());
+//            }
+//        });
 
         setCustomActionBar();
 
@@ -213,7 +240,7 @@ public class AddScheduleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final String[] strArray = new String[]{"3分","2分","1分","0分"};
                 final AlertDialog.Builder builder = new AlertDialog.Builder(AddScheduleActivity.this);//实例化builder
-                builder.setIcon(R.mipmap.ic_launcher);//设置图标
+                builder.setIcon(R.mipmap.reward_icon);//设置图标
                 builder.setTitle(R.string.points);//设置标题
 
                 //设置单选列表
@@ -221,16 +248,16 @@ public class AddScheduleActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String point = null;
-                        if(strArray[which].equals("3分")){
+                        if(strArray[which].equals("3点")){
                             pointbtn.setBackgroundResource(R.drawable.three_point);
                             schedule.setRewardpoint("3");
-                        }else if(strArray[which].equals("2分")){
+                        }else if(strArray[which].equals("2点")){
                             pointbtn.setBackgroundResource(R.drawable.two_point);
                             schedule.setRewardpoint("2");
-                        }else if(strArray[which].equals("1分")){
+                        }else if(strArray[which].equals("1点")){
                             pointbtn.setBackgroundResource(R.drawable.one_point);
                             schedule.setRewardpoint("1");
-                        }else if(strArray[which].equals("0分")){
+                        }else if(strArray[which].equals("0点")){
                             pointbtn.setBackgroundResource(R.drawable.aim_point);
                             schedule.setRewardpoint("0");
                         }

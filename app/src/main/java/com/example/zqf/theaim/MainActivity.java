@@ -4,6 +4,7 @@ package com.example.zqf.theaim;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +14,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,10 +27,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.zqf.theaim.Bean.Note;
+import com.example.zqf.theaim.Bean.Schedule;
 import com.example.zqf.theaim.Bean.User;
 import com.example.zqf.theaim.Fragment.AimFragment;
 import com.example.zqf.theaim.Fragment.CalendarFragment;
@@ -43,6 +51,7 @@ import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.DownloadFileListener;
 import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 public class MainActivity extends AppCompatActivity
@@ -59,6 +68,7 @@ public class MainActivity extends AppCompatActivity
     private ImageView user_head;
     static String path0="/data/data/com.example.zqf.theaim/cache/bmob/head.jpg";
     String path;
+    Note note = new Note();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,10 +175,37 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
-//        if(id == R.id.head){
-//            Intent intent=new Intent(MainActivity.this,AddReAimActivity.class);
-//            startActivity(intent);
-//        }
+        if(id == R.id.action_add_note) {
+            View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.note_create, null);
+            final EditText ctitle = (EditText) view.findViewById(R.id.cre_note_title);
+            final EditText ccontent = (EditText) view.findViewById(R.id.cre_note_content);
+//            创建对话框
+            AlertDialog dialog = new AlertDialog.Builder(this).create();
+//                dialog.setIcon(R.mipmap.ic_launcher);//设置图标
+            dialog.setTitle("记事本");//设置标题
+            dialog.setView(view);//添加布局
+            //设置按键
+            dialog.setButton(AlertDialog.BUTTON_POSITIVE, "确认", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(final DialogInterface dialog, int which) {
+                    if(!ctitle.getText().toString().equals(null)){
+                        note.setMaster(user);
+                        note.setTitle(ctitle.getText().toString());
+                        note.setContent(ccontent.getText().toString());
+                        SaveNote(user.getObjectId(),note);
+                    }
+                }
+
+            });
+            dialog.setButton(AlertDialog.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -239,6 +276,21 @@ public class MainActivity extends AppCompatActivity
             replaceFragment(new NoteFragment());
         }
 
+    }
+
+    //记事本添加
+    public void SaveNote(String objectId,Note note){
+        //schedule.setMastergoal("wqes");
+        note.save(new SaveListener<String>() {
+            @Override
+            public void done(String objectId,BmobException e) {
+                if(e==null){
+                    // Toast.makeText(getApplication(),"添加数据成功，返回objectId为：" + objectId,Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(getApplication(),"创建数据失败：" + e.getMessage(),Toast.LENGTH_LONG).show();      //hahaha
+                }
+            }
+        });
     }
 
 

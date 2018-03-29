@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CalendarView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +52,7 @@ public class CalendarFragment extends TodayFragment{
     View view;
     Toolbar toolbar;
     private TextView Month;
+    ImageView imageView;
     int month;
 
     public CalendarFragment() {
@@ -79,7 +81,7 @@ public class CalendarFragment extends TodayFragment{
         monthDateView.setDateClick(new MonthDateView.DateClick() {
             public void onClickOnDate() {
                 month = monthDateView.getmSelMonth() + 1;
-                Toast.makeText(getContext(), monthDateView.getmSelYear() + "年" + month + "月" + monthDateView.getmSelDay() + "日", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), monthDateView.getmSelYear() + "年" + month + "月" + monthDateView.getmSelDay() + "日", Toast.LENGTH_SHORT).show();
 
                 //toolbar.setTitle(month + "月");
 
@@ -95,8 +97,16 @@ public class CalendarFragment extends TodayFragment{
                     public void done(List<Schedule> object, BmobException e) {
                         if(e==null){;
                             scheduleList=object;                        //获取传递数据成功
-                            adapter=new ScheduleAdapter(getActivity(),R.layout.fragment_item,scheduleList);     //设置适配器
-                            listView.setAdapter(adapter);
+                            if(scheduleList.size()==0){
+                                imageView = (ImageView)view.findViewById(R.id.calendar_background);
+                                imageView.setBackgroundDrawable(getResources().getDrawable(R.drawable.calendar_nowork));
+                                //listView.setBackgroundResource(R.drawable.calendar_nowork);
+                            }else{
+                                imageView.setBackgroundDrawable(getResources().getDrawable(R.drawable.blank ));
+                                adapter=new ScheduleAdapter(getActivity(),R.layout.fragment_item,scheduleList);     //设置适配器
+                                listView.setAdapter(adapter);
+                            }
+
 
                         }else{
                             toast("失败："+e.getMessage());
@@ -128,7 +138,11 @@ public class CalendarFragment extends TodayFragment{
             public void done(List<Schedule> object, BmobException e) {
                 if(e==null){;
                     scheduleList=object;                        //获取传递数据成功
-
+                    if(scheduleList.size()==0){
+                        imageView = (ImageView)view.findViewById(R.id.calendar_background);
+                        imageView.setBackgroundDrawable(getResources().getDrawable(R.drawable.calendar_nowork));
+                        //listView.setBackgroundResource(R.drawable.calendar_nowork);
+                    }
                     adapter=new ScheduleAdapter(getActivity(),R.layout.fragment_item,scheduleList);     //设置适配器
                     listView.setAdapter(adapter);
 

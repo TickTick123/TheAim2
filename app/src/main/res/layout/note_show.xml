@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/show_note_set_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2018 3 28 20:12"
+        android:layout_margin="15dp"/>
+
+    <EditText
+        android:id="@+id/show_note_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="标题"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_margin="15dp"
+        android:background="@null"/>
+
+    <EditText
+        android:id="@+id/show_note_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="编辑"
+        android:gravity="top|left"
+        android:layout_marginTop="15dp"
+        android:maxLines="50"
+        android:minLines="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        android:background="@null"
+        android:layout_marginHorizontal="15dp"
+        android:textColor="#0000ff"/>
+</LinearLayout>

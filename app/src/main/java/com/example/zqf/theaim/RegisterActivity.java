@@ -2,6 +2,8 @@ package com.example.zqf.theaim;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +27,8 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         name =(EditText) findViewById(R.id.editText_register_name);             //初始化
         password=(EditText)findViewById(R.id.editText_register_password);
         regButton=(Button)findViewById(R.id.button_register_Reg);
@@ -58,8 +62,23 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.empty, menu);                           //添加菜单项
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return false;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void toast(String toast) {           //Toast便捷使用方法
