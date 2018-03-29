@@ -67,7 +67,7 @@ public class AddReAimActivity extends AppCompatActivity {
                         @Override
                         public void done(String objectId, BmobException e) {
                             if (e == null) {
-                                toast("添加数据成功，返回objectId为：" + objectId);
+                                //toast("添加数据成功，返回objectId为：" + objectId);
                             } else {
                                 toast("创建数据失败：" + e.getMessage());
                             }

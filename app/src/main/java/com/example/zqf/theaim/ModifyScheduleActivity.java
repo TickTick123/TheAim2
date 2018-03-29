@@ -174,13 +174,13 @@ public class ModifyScheduleActivity extends AddScheduleActivity {
         }
 
         //获取日程奖励点
-        if(schedule.getRewardpoint().equals("0")){
+        if(schedule.getRewardpoint()==0){
             pointbtn.setBackgroundResource(R.drawable.aim_point);
-        }else if(schedule.getRewardpoint().equals("1")){
+        }else if(schedule.getRewardpoint()==1){
             pointbtn.setBackgroundResource(R.drawable.one_point);
-        }else if(schedule.getRewardpoint().equals("2")){
+        }else if(schedule.getRewardpoint()==2){
             pointbtn.setBackgroundResource(R.drawable.two_point);
-        }else if(schedule.getRewardpoint().equals("3")){
+        }else if(schedule.getRewardpoint()==3){
             pointbtn.setBackgroundResource(R.drawable.three_point);
         }
 
@@ -238,7 +238,7 @@ public class ModifyScheduleActivity extends AddScheduleActivity {
         pointbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String[] strArray = new String[]{"3分","2分","1分","0分"};
+                final String[] strArray = new String[]{"3点","2点","1点","0点"};
                 final AlertDialog.Builder builder = new AlertDialog.Builder(ModifyScheduleActivity.this);//实例化builder
                 builder.setIcon(R.mipmap.reward_icon);//设置图标
                 builder.setTitle(R.string.points);//设置标题
@@ -250,16 +250,16 @@ public class ModifyScheduleActivity extends AddScheduleActivity {
                         String point = null;
                         if(strArray[which].equals("3点")){
                             pointbtn.setBackgroundResource(R.drawable.three_point);
-                            schedule.setRewardpoint("3");
+                            schedule.setRewardpoint(3);
                         }else if(strArray[which].equals("2点")){
                             pointbtn.setBackgroundResource(R.drawable.two_point);
-                            schedule.setRewardpoint("2");
+                            schedule.setRewardpoint(2);
                         }else if(strArray[which].equals("1点")){
                             pointbtn.setBackgroundResource(R.drawable.one_point);
-                            schedule.setRewardpoint("1");
+                            schedule.setRewardpoint(1);
                         }else if(strArray[which].equals("0点")){
                             pointbtn.setBackgroundResource(R.drawable.aim_point);
-                            schedule.setRewardpoint("0");
+                            schedule.setRewardpoint(0);
                         }
                     }
                 });
@@ -287,12 +287,18 @@ public class ModifyScheduleActivity extends AddScheduleActivity {
                     schedule.setDone("true");
                     int Done = user.getDoscheduleNumber();
                     user.setDoscheduleNumber(Done + 1);
+                    int point = user.getRewardpoint();
+                    int reward = schedule.getRewardpoint();
+                    user.setRewardpoint(point+reward);
                     SaveUserRecord(user.getObjectId(),user);
                 }else if(schedule.getDone().equals("true")){
                     state.setBackgroundResource(R.drawable.square);
                     schedule.setDone("false");
                     int Done = user.getDoscheduleNumber();
                     user.setDoscheduleNumber(Done - 1);
+                    int point = user.getRewardpoint();
+                    int reward = schedule.getRewardpoint();
+                    user.setRewardpoint(point-reward);
                     SaveUserRecord(user.getObjectId(),user);
                 }
             }
@@ -329,7 +335,7 @@ public class ModifyScheduleActivity extends AddScheduleActivity {
             @Override
             public void done(BmobException e) {
                     if (e == null) {
-                        Toast.makeText(getApplication(),"修改数据成功" ,Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplication(),"修改数据成功" ,Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(getApplication(),"创建数据失败：" + e.getMessage(),Toast.LENGTH_LONG).show();
                 }
@@ -345,7 +351,7 @@ public class ModifyScheduleActivity extends AddScheduleActivity {
             @Override
             public void done(BmobException e) {
                 if (e == null) {
-                    Toast.makeText(getApplication(),"修改数据成功" ,Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplication(),"修改数据成功" ,Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(getApplication(),"创建数据失败：" + e.getMessage(),Toast.LENGTH_LONG).show();
                 }

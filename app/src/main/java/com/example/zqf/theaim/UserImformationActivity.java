@@ -52,9 +52,11 @@ public class UserImformationActivity extends AppCompatActivity {
         }else{
             id_change.setText(user.getUsername()+"");
         }
-       if(!mail_change.getText().toString().equals("邮箱")){
-           mail_change.setText(user.getEmail()+"");
-       }
+        if(TextUtils.isEmpty(user.getEmail().toString())){
+            mail_change.setText("邮箱");
+        }else{
+            mail_change.setText(user.getEmail()+"");
+        }
 
         //id_change.setText(user.getUsername()+"");
 //        mail_change.setText(user.getUsername()+"");
@@ -209,18 +211,20 @@ public class UserImformationActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-//                if(!id_change.getText().toString().equals(user.getUsername().toString()) && mail_change.getText().toString().equals(user.getEmail().toString())){
-//                    user.setUsername(id_change.getText().toString());
-//                    SaveUserRecord(user.getObjectId(),user);
-//                }
-//                else if(id_change.getText().toString().equals(user.getUsername().toString()) && !mail_change.getText().toString().equals(user.getEmail().toString())){
-//                    user.setEmail(mail_change.getText().toString());
-//                    SaveUserRecord(user.getObjectId(),user);
-//                }else if(!id_change.getText().toString().equals(user.getUsername().toString()) && !mail_change.getText().toString().equals(user.getEmail().toString())){
-//                    user.setUsername(id_change.getText().toString());
-//                    user.setEmail(mail_change.getText().toString());
-//                    SaveUserRecord(user.getObjectId(),user);
-//                }
+                if(TextUtils.isEmpty(id_change.getText())){
+
+                }else if(!TextUtils.isEmpty(id_change.getText())){
+                    if(id_change.getText().equals(user.getUsername()) && mail_change.getText().equals(user.getEmail())){
+                        toast("has");
+                    }else if(!id_change.getText().equals(user.getUsername()) && mail_change.getText().equals(user.getEmail())){
+                        user.setUsername(id_change.getText().toString());
+                    }else if(id_change.getText().equals(user.getUsername()) && !mail_change.getText().equals(user.getEmail())){
+                        user.setEmail(mail_change.getText().toString());
+                    }else if(id_change.getText().equals(user.getUsername()) && mail_change.getText().equals(user.getEmail())){
+                        user.setUsername(id_change.getText().toString());
+                        user.setEmail(mail_change.getText().toString());
+                    }
+                }
                 SaveUserRecord(user.getObjectId(),user);
                 this.finish();
                 super.finish();
@@ -248,7 +252,7 @@ public class UserImformationActivity extends AppCompatActivity {
                 if (e == null) {
                     //  Toast.makeText(getApplication(),"修改数据成功" ,Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getApplication(),"创建数据失败：" + e.getMessage(),Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplication(),"创建数据失败：" + e.getMessage(),Toast.LENGTH_LONG).show();
                 }
             }
         });

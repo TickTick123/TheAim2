@@ -234,11 +234,11 @@ public class AddScheduleActivity extends AppCompatActivity {
         });
 
         pointbtn = (ImageButton) findViewById(R.id.point_btn);
-        schedule.setRewardpoint("0");
+        schedule.setRewardpoint(0);
         pointbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String[] strArray = new String[]{"3分","2分","1分","0分"};
+                final String[] strArray = new String[]{"3点","2点","1点","0点"};
                 final AlertDialog.Builder builder = new AlertDialog.Builder(AddScheduleActivity.this);//实例化builder
                 builder.setIcon(R.mipmap.reward_icon);//设置图标
                 builder.setTitle(R.string.points);//设置标题
@@ -250,16 +250,16 @@ public class AddScheduleActivity extends AppCompatActivity {
                         String point = null;
                         if(strArray[which].equals("3点")){
                             pointbtn.setBackgroundResource(R.drawable.three_point);
-                            schedule.setRewardpoint("3");
+                            schedule.setRewardpoint(3);
                         }else if(strArray[which].equals("2点")){
                             pointbtn.setBackgroundResource(R.drawable.two_point);
-                            schedule.setRewardpoint("2");
+                            schedule.setRewardpoint(2);
                         }else if(strArray[which].equals("1点")){
                             pointbtn.setBackgroundResource(R.drawable.one_point);
-                            schedule.setRewardpoint("1");
+                            schedule.setRewardpoint(1);
                         }else if(strArray[which].equals("0点")){
                             pointbtn.setBackgroundResource(R.drawable.aim_point);
-                            schedule.setRewardpoint("0");
+                            schedule.setRewardpoint(0);
                         }
                     }
                 });
@@ -356,8 +356,8 @@ public class AddScheduleActivity extends AppCompatActivity {
                     schedule.setMaster(user);
                     int i = user.getScheduleNumber();
                     user.setScheduleNumber(i+1);
-//                    user.setDoscheduleNumber(4);
-//                    user.setScheduleNumber(7);
+//                    user.setDoscheduleNumber(0);
+//                    user.setScheduleNumber(1);
                     schedule.setMastergoal("日程箱");
                     SaveUserRecord(user.getObjectId(),user);
                     SaveRecord(schedule.getObjectId(),schedule);

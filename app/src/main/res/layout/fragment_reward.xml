@@ -15,8 +15,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:textSize="20dp"
-            android:text="奖励点余量："/>
+            android:textSize="25dp"
+            android:text="奖励点余量："
+            android:textColor="#FF3300"/>
 
         <TextView
             android:id="@+id/reward_amount"
@@ -24,7 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:textSize="20dp"
-            android:text="100点"/>
+            android:text="100点"
+            android:textColor="#FF3333"/>
     </LinearLayout>
 
     <!-- TODO: Update blank fragment layout -->

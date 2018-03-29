@@ -20,7 +20,9 @@
         android:textSize="25sp"
         android:layout_weight="5"
         android:layout_margin="13dp"
-        android:maxLines="2"/>
+        android:maxLines="2"
+        android:textStyle="bold"
+        android:textColor="#CC6600"/>
     <TextView
         android:id="@+id/re_costpoint"
         android:layout_width="wrap_content"

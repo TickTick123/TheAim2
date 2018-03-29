@@ -2,13 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <TextView
         android:id="@+id/note_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="5"
         android:layout_margin="13dp"
         android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#3333FF"
+        android:layout_weight="5"
         android:text="备忘录标题"/>
 
     <TextView
@@ -18,6 +21,8 @@
         android:gravity="center_vertical|right"
         android:layout_margin="13dp"
         android:layout_weight="1"
+        android:textStyle="italic"
+        android:textColor="#0066FF"
         android:text="记录时间" />
 
 

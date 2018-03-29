@@ -9,7 +9,7 @@ import cn.bmob.v3.BmobObject;
 public class Schedule extends BmobObject {
     private User master;  //日程所属用户的ID
     private String mastergoal;  //日程所属子目标的ID``
-    private String rewardpoint;  //此日程所得的奖励点（1，2，3）
+    private int rewardpoint;  //此日程所得的奖励点（1，2，3）
     private String content;  //内容
     private String decribe;  // 描述
     private int year;  //年
@@ -53,11 +53,11 @@ public class Schedule extends BmobObject {
         this.decribe = decribe;
     }
 
-    public String getRewardpoint() {
+    public int getRewardpoint() {
         return rewardpoint;
     }
 
-    public void setRewardpoint(String rewardpoint) {
+    public void setRewardpoint(int rewardpoint) {
         this.rewardpoint = rewardpoint;
     }
 

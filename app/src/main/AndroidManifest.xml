@@ -92,7 +92,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ModifyScheduleActivity" />
         <activity android:name=".AddReAimActivity" />
-        <activity android:name=".Note_Show" />
+        <activity android:name=".Note_Show"
+            android:label="备忘录"/>
     </application>
 
 </manifest>

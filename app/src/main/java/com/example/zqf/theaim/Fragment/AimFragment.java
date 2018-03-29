@@ -87,7 +87,7 @@ public class AimFragment extends Fragment {
         dataMap = sp.getString("dataMap", null);
         dataParentList = sp.getString("dataParentList", null);
 
-      if(dataMap == null || dataParentList == null){
+      if(dataMap== null || dataParentList == null){
             //Toast.makeText(getActivity(),"请添加组",Toast.LENGTH_SHORT).show();//tgy的
           //getView().setBackgroundDrawable(getResources().getDrawable(R.drawable.free_day));
 
@@ -267,7 +267,7 @@ public class AimFragment extends Fragment {
         editor = sp.edit();
         editor.putString("dataMap", dataMap);
         editor.putString("dataParentList", dataParentList);
-       editor.commit();
+        editor.commit();
         //  editor.clear().commit();
     }
 

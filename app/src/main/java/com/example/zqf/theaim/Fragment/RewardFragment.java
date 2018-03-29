@@ -123,7 +123,7 @@ public class RewardFragment extends Fragment{
                             @Override
                             public void done(BmobException e) {
                                 if (e == null) {
-                                    toast("修改数据成功");
+                                    //toast("修改数据成功");
                                 } else {
                                     toast("创建数据失败：" + e.getMessage());
                                 }

@@ -105,8 +105,13 @@ public class PersonalCenterActivity extends AppCompatActivity implements OnChart
         Intent i = getIntent();
         Bundle bundle = i.getExtras();
         if(bundle!=null){
-            Id.setText(bundle.getString("id"));
-            Mail.setText(bundle.getString("mail"));
+            if(TextUtils.isEmpty(bundle.getString("id"))){
+
+            }else{
+                Id.setText(bundle.getString("id"));
+                Mail.setText(bundle.getString("mail"));
+            }
+
         }
 
 //        user_id.setText(user.getUsername()+"");
@@ -292,6 +297,11 @@ public class PersonalCenterActivity extends AppCompatActivity implements OnChart
                 startActivity(intent);
                 return false;
             case R.id.exit:
+                File F=new File("/data/data/com.example.zqf.theaim/cache/bmob/head.jpg");
+                if(F.exists()) {
+                    F.delete();
+                }
+
                 user.logOut();
                 Intent intent1 = new Intent(PersonalCenterActivity.this,LoginActivity.class);
                 startActivity(intent1);

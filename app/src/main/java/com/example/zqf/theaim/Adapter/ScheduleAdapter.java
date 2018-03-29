@@ -91,6 +91,10 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
                     schedule.setDone("true");
                     int Done = user1.getDoscheduleNumber();
                     user1.setDoscheduleNumber(Done + 1);
+                    int point = user.getRewardpoint();
+                    int reward = schedule.getRewardpoint();
+                    //toast(point+"原奖励点数"+reward+"日程奖励点数");
+                    user1.setRewardpoint(point + reward);
                     SaveUserRecord(user1.getObjectId(),user1);
                     Tickimage.setImageResource(R.drawable.square_ok);        //修改图标
                     String id1 = schedule.getObjectId();
@@ -109,6 +113,9 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
                     schedule.setDone("false");
                     int Done = user1.getDoscheduleNumber();
                     user1.setDoscheduleNumber(Done - 1);
+                    int point = user.getRewardpoint();
+                    int reward = schedule.getRewardpoint();
+                    user1.setRewardpoint(point-reward);
                     SaveUserRecord(user1.getObjectId(),user1);
                     Tickimage.setImageResource(R.drawable.square);        //修改图标
                     String id1 = schedule.getObjectId();
