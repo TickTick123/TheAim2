@@ -6,28 +6,28 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_camera"
-            android:icon="@drawable/clock"
+            android:icon="@drawable/today"
             android:title="今天" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/target"
+            android:icon="@drawable/aim"
             android:title="目标箱" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/tick"
+            android:icon="@drawable/sch"
             android:title="日程箱" />
         <item
             android:id="@+id/nav_manage"
-            android:icon="@drawable/calendar"
+            android:icon="@drawable/cal"
             android:title="日历" />
         <item
             android:id="@+id/nav_share"
-            android:icon="@drawable/coffee"
+            android:icon="@drawable/relax"
             android:title="奖励箱" />
         <item
             android:id="@+id/nav_note"
-            android:icon="@drawable/notepad"
-            android:title="备忘录" />
+            android:icon="@drawable/record"
+            android:title="记录本" />
     </group>
 
 

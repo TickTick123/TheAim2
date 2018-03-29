@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity
             num=5;
         }else if(id == R.id.nav_note){
             replaceFragment(new NoteFragment());
-            toolbar.setTitle("备忘录");
+            toolbar.setTitle("记录本");
             num = 6;
         }
 
