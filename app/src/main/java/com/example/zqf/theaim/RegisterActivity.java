@@ -45,6 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
                 user.setRewardpoint(0);
                 user.setScheduleNumber(0);
                 user.setDoscheduleNumber(0);
+                user.setEmail("mail@qq.com");
 
                 user.signUp(new SaveListener<User>() {
                     @Override

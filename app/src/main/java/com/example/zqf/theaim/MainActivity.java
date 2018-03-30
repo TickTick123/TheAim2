@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity
             });
         }
         Bitmap bt = BitmapFactory.decodeFile(path0);
+        Bitmap b = BitmapFactory.decodeFile(path);
         user_head.setImageBitmap(bt);
 
         //toast(user_id.getText().toString());
