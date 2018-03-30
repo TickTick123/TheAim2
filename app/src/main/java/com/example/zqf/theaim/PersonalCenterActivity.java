@@ -57,6 +57,8 @@ import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UploadFileListener;
 import rx.functions.Action1;
 
+import static com.example.zqf.theaim.MainActivity.mainactivity;
+
 public class PersonalCenterActivity extends AppCompatActivity implements OnChartValueSelectedListener{
     private User user;
     private PieChart mPieChart;
@@ -73,6 +75,7 @@ public class PersonalCenterActivity extends AppCompatActivity implements OnChart
     private String path;
     static String path0="/data/data/com.example.zqf.theaim/cache/bmob/head.jpg";
     private AlertDialog.Builder builder;
+    static PersonalCenterActivity personalCenterActivity;
 
 
     @Override
@@ -85,6 +88,7 @@ public class PersonalCenterActivity extends AppCompatActivity implements OnChart
         //actionBar.setDisplayShowTitleEnabled(false); //隐藏标题
         initView();
 
+        personalCenterActivity = PersonalCenterActivity.this;
         Id = (TextView)findViewById(R.id.id);
         Mail = (TextView)findViewById(R.id.mail);
         samount = (TextView)findViewById(R.id.schedule_amount_text);
@@ -140,7 +144,7 @@ public class PersonalCenterActivity extends AppCompatActivity implements OnChart
             @Override
             public void onClick(View v) {
                 builder=new AlertDialog.Builder(PersonalCenterActivity.this);
-                builder.setIcon(R.mipmap.reward_icon);
+                builder.setIcon(R.mipmap.camera);
                 builder.setTitle("请选择获取图片方式");
                 final String[] Items={"从相册中选择","使用相机拍摄"};
                 builder.setItems(Items, new DialogInterface.OnClickListener() {
@@ -288,6 +292,7 @@ public class PersonalCenterActivity extends AppCompatActivity implements OnChart
             case android.R.id.home:
                     this.finish();
                     super.finish();
+                    mainactivity.finish();
                     Intent i = new Intent(PersonalCenterActivity.this,MainActivity.class);
                     startActivity(i);
                     return false;
@@ -305,6 +310,7 @@ public class PersonalCenterActivity extends AppCompatActivity implements OnChart
                 user.logOut();
                 Intent intent1 = new Intent(PersonalCenterActivity.this,LoginActivity.class);
                 startActivity(intent1);
+                //mainactivity.finish();
                 finish();
                 return false;
             default:

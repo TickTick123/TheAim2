@@ -57,7 +57,7 @@ import cn.bmob.v3.listener.UpdateListener;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
-
+    static  MainActivity mainactivity;
     static AimFragment  fragment;
     private int num;              //标记目前所在fragment
     static Toolbar toolbar;
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mainactivity=MainActivity.this;
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         num=0;
@@ -89,6 +89,14 @@ public class MainActivity extends AppCompatActivity
                 //  .setAction("Action", null).show();
             }
         });
+
+//        Intent i = getIntent();
+//        Bundle bundle = i.getExtras();
+//        if(bundle!=null){
+//            String s = bundle.getString("image");
+//            Bitmap m = BitmapFactory.decodeFile(s);
+//            user_head.setImageBitmap(m);
+//        }
 
 
 
@@ -125,7 +133,6 @@ public class MainActivity extends AppCompatActivity
             });
         }
         Bitmap bt = BitmapFactory.decodeFile(path0);
-        Bitmap b = BitmapFactory.decodeFile(path);
         user_head.setImageBitmap(bt);
 
         //toast(user_id.getText().toString());
@@ -194,6 +201,7 @@ public class MainActivity extends AppCompatActivity
                         note.setTitle(ctitle.getText().toString());
                         note.setContent(ccontent.getText().toString());
                         SaveNote(user.getObjectId(),note);
+                        replaceFragment(new NoteFragment());
                     }
                 }
 

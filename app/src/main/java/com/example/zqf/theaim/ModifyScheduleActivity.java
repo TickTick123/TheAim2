@@ -117,7 +117,7 @@ public class ModifyScheduleActivity extends AddScheduleActivity {
 
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(ModifyScheduleActivity.this);//实例化builder
-                builder.setIcon(R.mipmap.reward_icon);//设置图标
+                builder.setIcon(R.mipmap.drawers);//设置图标
                 builder.setTitle("移动到子目标");//设置标题
                 final String[] str= new String[SecAim.size()];
                 for (int i = 0; i < SecAim.size(); i++) {

@@ -49,6 +49,8 @@ import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
+import static com.example.zqf.theaim.MainActivity.mainactivity;
+
 public class AddScheduleActivity extends AppCompatActivity {
 
 
@@ -145,7 +147,7 @@ public class AddScheduleActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(AddScheduleActivity.this);//实例化builder
-                builder.setIcon(R.mipmap.reward_icon);//设置图标
+                builder.setIcon(R.mipmap.drawers);//设置图标
                 builder.setTitle("移动到子目标");//设置标题
 
                 final String[] str= new String[SecAim.size()];
@@ -350,6 +352,10 @@ public class AddScheduleActivity extends AppCompatActivity {
                     SaveUserRecord(user.getObjectId(),user);
                     SaveRecord(schedule.getObjectId(),schedule);
                     this.finish();
+                    mainactivity.finish();
+                    Intent intent = new Intent(AddScheduleActivity.this,MainActivity.class);
+                    startActivity(intent);
+                    replaceFragment(new ScheduleFragment());
                     return false;
                 }else if(!TextUtils.isEmpty(title.getText()) && actionbar_btn.getText().equals("日程箱")){
 //                    User user= BmobUser.getCurrentUser(User.class);        //bmob查询当前缓存;
@@ -418,7 +424,12 @@ public class AddScheduleActivity extends AppCompatActivity {
             Log.e("eric","String转Map或List出错"+e);
         }
     }
-
+    private void replaceFragment(Fragment fragment){                    //fragment切换
+        FragmentManager fm=mainactivity.getSupportFragmentManager();              //新的fragment的不同之处
+        FragmentTransaction transaction=fm.beginTransaction();      //fragment控制器
+        transaction.replace(R.id.content,fragment);
+        transaction.commit();
+    }
 
 }
 

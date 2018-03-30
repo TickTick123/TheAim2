@@ -2,6 +2,9 @@ package com.example.zqf.theaim.Adapter;
 
 import android.content.Context;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +26,7 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
+
 
 /**
  * Created by zqf on 2018/3/3.
@@ -71,8 +75,7 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         TextView decribe=(TextView)view.findViewById(R.id.decribe);
         TextView belong = (TextView)view.findViewById(R.id.belong);
 
-
-
+        //toast(user.getScheduleNumber()+"  日程数"+user.getDoscheduleNumber()+"已完成");
 
         if(schedule.getDone().equals("true"))
             Tickimage.setImageResource(R.drawable.square_ok);            //完成的显示勾号
@@ -163,5 +166,6 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
             }
         });
     }
+
 
 }

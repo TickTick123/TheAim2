@@ -138,6 +138,7 @@ public class ScheduleFragment extends Fragment {
                     scheduleList=object;                        //获取传递数据成功
                     adapter=new ScheduleAdapter(getActivity(),R.layout.fragment_item,scheduleList);     //设置适配器
                     listView.setAdapter(adapter);
+                    //replaceFragment(new ScheduleFragment());
 
                     if(scheduleList.size()!=0){
                         for(int i = 0;i<scheduleList.size();i++) {
@@ -203,15 +204,15 @@ public class ScheduleFragment extends Fragment {
                                         int Sum = user1.getScheduleNumber();
                                         //toast(Sum+"d");
                                         user1.setScheduleNumber(Sum - 1);
+                                        replaceFragment(new ScheduleFragment());
                                         SaveUserRecord(user1.getObjectId(),user1);
                                     }else if(schedule1.getDone().equals("false")){
                                         int Sum = user1.getScheduleNumber();
                                         //toast(Sum+"d");
                                         user1.setScheduleNumber(Sum - 1);
+                                        replaceFragment(new ScheduleFragment());
                                         SaveUserRecord(user1.getObjectId(),user1);
                                     }
-
-
 
                                    // toast("删除成功:"+schedule1.getUpdatedAt());
                                 }else{
@@ -260,5 +261,10 @@ public class ScheduleFragment extends Fragment {
             }
         });
     }
-
+    private void replaceFragment(Fragment fragment){                    //fragment切换
+        FragmentManager fm=getActivity().getSupportFragmentManager();              //新的fragment的不同之处
+        FragmentTransaction transaction=fm.beginTransaction();      //fragment控制器
+        transaction.replace(R.id.content,fragment);
+        transaction.commit();
+    }
 }

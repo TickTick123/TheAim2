@@ -11,9 +11,13 @@ import android.widget.Toast;
 
 import com.example.zqf.theaim.Bean.User;
 
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.DownloadFileListener;
 import cn.bmob.v3.listener.LogInListener;
+import cn.bmob.v3.listener.QueryListener;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -23,6 +27,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private final static String SP_INFOS="login";
     private final static String USERNAME="uname";
     private final static String USERPASS="upass";
+    String path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.textView_forget).setOnClickListener(this);       //设置监听器
         findViewById(R.id.textView_reg).setOnClickListener(this);       //设置监听器
         findViewById(R.id.textView_phonereg).setOnClickListener(this);       //设置监听器
+
+
 
     }
     @Override
@@ -83,7 +90,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         @Override
                         public void done(User user, BmobException e) {
                             if(user!=null){
+                                BmobQuery<User> query=new BmobQuery<>();
+                                query.getObject(user.getObjectId(), new QueryListener<User>() {
+                                    @Override
+                                    public void done(User user, BmobException e) {
+                                        if(e==null){
+                                            download(user.getPicUser());
+                                        }
+                                    }
+                                });
                                 Intent mainIntent=new Intent(LoginActivity.this,MainActivity.class);
+//                                Bundle bundle = new Bundle();
+//                                bundle.putString("image",path);
+//                                mainIntent.putExtras(bundle);
                                 startActivity(mainIntent);
                                 finish();
                             }
@@ -113,5 +132,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void toast(String toast) {           //Toast便捷使用方法
         Toast.makeText(this, toast, Toast.LENGTH_LONG).show();
     };
+
+    public void download(BmobFile picUser){
+        picUser.download((new DownloadFileListener() {
+            @Override
+            public void done(String s, BmobException e) {
+                if(e==null){
+                    //toast(s);
+                    path = s;
+                }
+            }
+
+            @Override
+            public void onProgress(Integer integer, long l) {
+
+            }
+        }));
+    }
 
 }

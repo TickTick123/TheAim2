@@ -24,6 +24,8 @@ import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.UpdateListener;
 import rx.Subscription;
 
+import static com.example.zqf.theaim.PersonalCenterActivity.personalCenterActivity;
+
 public class UserImformationActivity extends AppCompatActivity {
 
     User user;
@@ -47,19 +49,11 @@ public class UserImformationActivity extends AppCompatActivity {
         kefu = findViewById(R.id.kefu);
 
 
-        if(TextUtils.isEmpty(user.getUsername().toString())){
-            id_change.setText("");
-        }else{
-            id_change.setText(user.getUsername()+"");
-        }
-        if(TextUtils.isEmpty(user.getEmail().toString())){
-            mail_change.setText("邮箱");
-        }else{
-            mail_change.setText(user.getEmail()+"");
-        }
 
-        //id_change.setText(user.getUsername()+"");
-//        mail_change.setText(user.getUsername()+"");
+        id_change.setText(user.getUsername()+"");
+        mail_change.setText(user.getEmail()+"");
+
+
 
 
         //编辑昵称
@@ -228,6 +222,7 @@ public class UserImformationActivity extends AppCompatActivity {
                 SaveUserRecord(user.getObjectId(),user);
                 this.finish();
                 super.finish();
+                personalCenterActivity.finish();
                 Intent i = new Intent(UserImformationActivity.this,PersonalCenterActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("id",id_change.getText().toString());

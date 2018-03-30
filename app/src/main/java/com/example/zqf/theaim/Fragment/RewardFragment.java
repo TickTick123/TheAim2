@@ -9,6 +9,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.Gravity;
@@ -65,8 +67,13 @@ public class RewardFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         user = BmobUser.getCurrentUser(User.class);        //bmob查询当前缓存
-
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        //replaceFragment(new RewardFragment());
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -123,6 +130,7 @@ public class RewardFragment extends Fragment{
                             @Override
                             public void done(BmobException e) {
                                 if (e == null) {
+                                    replaceFragment(new RewardFragment());
                                     //toast("修改数据成功");
                                 } else {
                                     toast("创建数据失败：" + e.getMessage());
@@ -198,65 +206,10 @@ public class RewardFragment extends Fragment{
         Toast.makeText(getActivity(), toast, Toast.LENGTH_LONG).show();
     }
 
-//    private void showPopwindow() {
-//        //View parent = ((ViewGroup) this.findViewById(android.R.id.content)).getChildAt(0);
-//        View popView = View.inflate(getContext(), R.layout.buttom_view, null);
-//
-//        int width = getResources().getDisplayMetrics().widthPixels;
-//        int height = getResources().getDisplayMetrics().heightPixels;
-//
-//        final PopupWindow popWindow = new PopupWindow(popView,width,height);
-//        //popWindow.setAnimationStyle(R.style.AnimBottom);
-//        popWindow.setFocusable(true);
-//        popWindow.setOutsideTouchable(false);// 设置允许在外点击消失
-//
-//
-//
-//
-//        ColorDrawable dw = new ColorDrawable(0x30000000);
-//        popWindow.setBackgroundDrawable(dw);
-//        popWindow.showAtLocation(getView(), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-//    }
-
-    private void PopWindow() {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.buttom_view, null);
-        //设置屏幕的高度和宽度
-        DisplayMetrics dm =getResources().getDisplayMetrics();
-        int w_screen = dm.widthPixels;
-        int h_screen = dm.heightPixels;
-        final PopupWindow pop = new PopupWindow(view, (w_screen)*4/5, (h_screen)*3/10);
-        //如果不设置背景颜色的话，无法是pop dimiss掉。
-        pop.setBackgroundDrawable(getResources().getDrawable(R.drawable.popupwindow_background));
-        pop.setOutsideTouchable(true);
-        pop.setAnimationStyle(R.style.MyPopupWindow_anim_style);
+    private void replaceFragment(Fragment fragment){                    //fragment切换
+        FragmentManager fm=getActivity().getSupportFragmentManager();              //新的fragment的不同之处
+        FragmentTransaction transaction=fm.beginTransaction();      //fragment控制器
+        transaction.replace(R.id.content,fragment);
+        transaction.commit();
     }
-
-//    private void showPopupWindow() {
-//        //设置contentView
-//        View contentView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_note_item, null);
-//        mPopWindow = new PopupWindow(contentView,
-//                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-//        mPopWindow.setContentView(contentView);
-//        //设置各个控件的点击响应
-//
-//        //显示PopupWindow
-//        View rootview = LayoutInflater.from(getContext()).inflate(R.layout.fragment_reward, null);
-//        mPopWindow.showAtLocation(rootview, Gravity.BOTTOM, 0, 0);
-//
-//        mPopWindow.setAnimationStyle(R.style.MyPopupWindow_anim_style);
-//        //mPopWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.popupwindow_background));
-//       // mPopWindow.setOutsideTouchable(true);
-//    }
-
-//
-//    @Override
-//    public void onClick(View v) {
-//        int id = v.getId();
-//        switch (id){
-//            case R.id.used_pwd:
-//                mPopWindow.dismiss();
-//                break;
-//        }
-//
-//    }
 }
