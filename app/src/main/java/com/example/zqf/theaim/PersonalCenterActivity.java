@@ -140,7 +140,7 @@ public class PersonalCenterActivity extends AppCompatActivity implements OnChart
             @Override
             public void onClick(View v) {
                 builder=new AlertDialog.Builder(PersonalCenterActivity.this);
-                builder.setIcon(R.mipmap.ic_launcher);
+                builder.setIcon(R.mipmap.reward_icon);
                 builder.setTitle("请选择获取图片方式");
                 final String[] Items={"从相册中选择","使用相机拍摄"};
                 builder.setItems(Items, new DialogInterface.OnClickListener() {

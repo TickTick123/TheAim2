@@ -93,7 +93,7 @@
         <activity android:name=".ModifyScheduleActivity" />
         <activity android:name=".AddReAimActivity" />
         <activity android:name=".Note_Show"
-            android:label="备忘录"/>
+            android:label="记录本"/>
     </application>
 
 </manifest>

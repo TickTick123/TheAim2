@@ -128,7 +128,7 @@ public class AimFragment extends Fragment {
                                     int groupPosition, int childPosition, long id) {
             String str = (String)adapter.getChild(groupPosition, childPosition);
            // String str = "choose"+groupPosition+"-"+childPosition;
-            Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();                  //跳转对应日程
+           // Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();                  //跳转对应日程
 
             replaceFragment(new SchAimFragment(str));
             return false;

@@ -145,8 +145,8 @@ public class AddScheduleActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(AddScheduleActivity.this);//实例化builder
-                builder.setIcon(R.mipmap.ic_launcher);//设置图标
-                builder.setTitle("移动到清单");//设置标题
+                builder.setIcon(R.mipmap.reward_icon);//设置图标
+                builder.setTitle("移动到子目标");//设置标题
 
                 final String[] str= new String[SecAim.size()];
                 for (int i = 0; i < SecAim.size(); i++) {
