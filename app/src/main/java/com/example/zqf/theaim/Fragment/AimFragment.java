@@ -20,6 +20,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 //
 import com.example.zqf.theaim.AddScheduleActivity;
+import com.example.zqf.theaim.Bean.User;
 import com.example.zqf.theaim.MainActivity;
 import com.example.zqf.theaim.ModifyDialog;
 import com.example.zqf.theaim.MyAdapter;
@@ -33,6 +34,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import cn.bmob.v3.BmobUser;
 
 /**
  * Created by dell on 2018/2/28
@@ -50,12 +53,14 @@ public class AimFragment extends Fragment {
     public static SharedPreferences sp;
     public static SharedPreferences.Editor editor;
     public static String dataMap,dataParentList;
+    private User user;
     @Override//初始化Fragment页面
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //加载fragment_aim布局和ExpandableListView控件
         view = inflater.inflate(R.layout.fragment_aim, container, false);
         expandableListView = (ExpandableListView) view.findViewById(R.id.expandablelistview);
+        user = BmobUser.getCurrentUser(User.class);
         //调用initData()方法进行组数据parentList和组对应子项map的初始化
         initData();
 
@@ -80,8 +85,8 @@ public class AimFragment extends Fragment {
         // 参数一为要保存的xml文件名，不同的文件名产生的对象不同，但同一文件名可以产生多个引用，
         // 从而可以保证数据共享。此处注意指定参数一时，不用加xml后缀，由系统自动添加
         // 参数二使得SharedPreferences存储的数据只能在本应用内获得
-        // https://www.cnblogs.com/baipengzhan/p/Android_SharedPreferences.html（包含对　SharedPreferences的讲解）
-        sp = getActivity().getApplicationContext().getSharedPreferences("spfile", getActivity().MODE_PRIVATE);
+        String file = user.getUsername();
+        sp = getActivity().getApplicationContext().getSharedPreferences(user.getUsername()+"", getActivity().MODE_PRIVATE);
        //查询SharedPreferences存储的数据
         // 第一个参数是要查询的键，返回对应的值，当键不存在时，返回参数二作为结果。
         dataMap = sp.getString("dataMap", null);
@@ -90,7 +95,6 @@ public class AimFragment extends Fragment {
       if(dataMap== null || dataParentList == null){
             //Toast.makeText(getActivity(),"请添加组",Toast.LENGTH_SHORT).show();//tgy的
           //getView().setBackgroundDrawable(getResources().getDrawable(R.drawable.free_day));
-
         }
         else{
             try {
@@ -263,12 +267,11 @@ public class AimFragment extends Fragment {
         JSONObject jsonObject = new JSONObject(map);
         dataMap = jsonObject.toString();
         dataParentList = parentList.toString();
-
         editor = sp.edit();
         editor.putString("dataMap", dataMap);
         editor.putString("dataParentList", dataParentList);
         editor.commit();
-        //  editor.clear().commit();
+        // editor.clear().commit();
     }
 
     private void replaceFragment(Fragment fragment){                    //fragment切换

@@ -394,7 +394,8 @@ public class AddScheduleActivity extends AppCompatActivity {
 
         map = new HashMap<String, List<String>>();
         parentList = new ArrayList<String>();
-        sp = this.getApplicationContext().getSharedPreferences("spfile", this.MODE_PRIVATE);
+        String file = user.getUsername();
+        sp = this.getApplicationContext().getSharedPreferences(user.getUsername()+"", this.MODE_PRIVATE);
         //查询SharedPreferences存储的数据
         // 第一个参数是要查询的键，返回对应的值，当键不存在时，返回参数二作为结果。
         dataMap = sp.getString("dataMap", null);

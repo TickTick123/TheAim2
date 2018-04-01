@@ -32,6 +32,7 @@ public class AddReAimActivity extends AppCompatActivity {
     private Button submit;
     private EditText aimcontent;
     private Button aimsubmit;
+    private User user;
 
     public static List<String> parentList;
     public static Map<String,List<String>> map;
@@ -49,6 +50,7 @@ public class AddReAimActivity extends AppCompatActivity {
         aimcontent=(EditText)findViewById(R.id.aim_content);
         aimsubmit=(Button)findViewById(R.id.aim_commit);
 
+        user = BmobUser.getCurrentUser(User.class);
         submit.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -105,7 +107,7 @@ public class AddReAimActivity extends AppCompatActivity {
 
         map = new HashMap<String, List<String>>();
         parentList = new ArrayList<String>();
-        sp = this.getApplicationContext().getSharedPreferences("spfile", this.MODE_PRIVATE);
+        sp = this.getApplicationContext().getSharedPreferences(user.getUsername()+"", this.MODE_PRIVATE);
         //查询SharedPreferences存储的数据
         // 第一个参数是要查询的键，返回对应的值，当键不存在时，返回参数二作为结果。
         dataMap = sp.getString("dataMap", null);

@@ -114,8 +114,6 @@ public class ModifyScheduleActivity extends AddScheduleActivity {
         actionbar_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 final AlertDialog.Builder builder = new AlertDialog.Builder(ModifyScheduleActivity.this);//实例化builder
                 builder.setIcon(R.mipmap.drawers);//设置图标
                 builder.setTitle("移动到子目标");//设置标题
