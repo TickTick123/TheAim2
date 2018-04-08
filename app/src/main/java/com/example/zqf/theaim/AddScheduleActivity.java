@@ -355,7 +355,7 @@ public class AddScheduleActivity extends AppCompatActivity {
                     mainactivity.finish();
                     Intent intent = new Intent(AddScheduleActivity.this,MainActivity.class);
                     startActivity(intent);
-                    replaceFragment(new ScheduleFragment());
+                   // replaceFragment(new ScheduleFragment());
                     return false;
                 }else if(!TextUtils.isEmpty(title.getText()) && actionbar_btn.getText().equals("日程箱")){
 //                    User user= BmobUser.getCurrentUser(User.class);        //bmob查询当前缓存;

@@ -21,6 +21,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -58,6 +59,7 @@ public class RewardFragment extends Fragment{
     BmobQuery<Reward> query;
     ListView listView;
     TextView textView;
+    ImageView imageView;
     private PopupWindow mPopWindow;
     public RewardFragment() {
         // Required empty public constructor
@@ -82,6 +84,7 @@ public class RewardFragment extends Fragment{
         View view =inflater.inflate(R.layout.fragment_reward, container, false);
         listView=(ListView) view.findViewById(R.id.re_list);
         textView=(TextView)view.findViewById(R.id.reward_amount) ;
+        imageView = (ImageView)view.findViewById(R.id.reward_background);
         textView.setText(user.getRewardpoint()+"");
         //showPopupWindow();
         query = new BmobQuery<Reward>();              //按条件查找
@@ -103,7 +106,15 @@ public class RewardFragment extends Fragment{
                     rewardList=object;                        //获取传递数据成功
                     //toast(object.get(1).getContent().toString());               //获取正确
                     adapter=new RewardAdapter(getActivity(),R.layout.fragment_re_item,rewardList);     //设置适配器
-                    listView.setAdapter(adapter);               //出错
+                   // listView.setAdapter(adapter);               //出错
+                    if(rewardList.size()==0){
+                        imageView.setBackgroundDrawable(getResources().getDrawable(R.drawable.no_reward));
+                        //listView.setBackgroundResource(R.drawable.calendar_nowork);
+                    }else{
+                        imageView.setBackgroundDrawable(getResources().getDrawable(R.drawable.blank ));
+                        adapter=new RewardAdapter(getActivity(),R.layout.fragment_re_item,rewardList);      //设置适配器
+                        listView.setAdapter(adapter);
+                    }
 
                 }else{
                     toast("失败："+e.getMessage());

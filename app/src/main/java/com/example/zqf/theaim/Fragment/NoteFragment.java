@@ -90,6 +90,9 @@ public class NoteFragment extends Fragment {
                     //toast(object.get(1).getContent().toString());               //获取正确
                     adapter=new NoteAdapter(getActivity(),R.layout.fragment_note_item,noteList);     //设置适配器
                     listView.setAdapter(adapter);               //出错
+                    if(noteList.size()==0){
+                        getView().setBackgroundDrawable(getResources().getDrawable(R.drawable.free_day));
+                    }
 
                 }else{
                     toast("失败："+e.getMessage());

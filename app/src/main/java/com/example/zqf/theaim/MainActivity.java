@@ -145,6 +145,14 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        user_id.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(headerLayout.getContext(),PersonalCenterActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override

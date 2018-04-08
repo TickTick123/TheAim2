@@ -209,7 +209,7 @@ public class UserImformationActivity extends AppCompatActivity {
 
                 }else if(!TextUtils.isEmpty(id_change.getText())){
                     if(id_change.getText().equals(user.getUsername()) && mail_change.getText().equals(user.getEmail())){
-                        toast("has");
+
                     }else if(!id_change.getText().equals(user.getUsername()) && mail_change.getText().equals(user.getEmail())){
                         user.setUsername(id_change.getText().toString());
                     }else if(id_change.getText().equals(user.getUsername()) && !mail_change.getText().equals(user.getEmail())){
