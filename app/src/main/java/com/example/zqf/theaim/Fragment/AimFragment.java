@@ -155,7 +155,7 @@ public class AimFragment extends Fragment {
 
                 String str = (String)adapter.getChild(groupPosition, childPosition);
                 alertModifyDialog("修改此项名称",str);
-                Toast.makeText(getActivity(),str,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(),str,Toast.LENGTH_SHORT).show();
                 return true;
                 //长按组
             }else if(ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_GROUP){
@@ -170,7 +170,7 @@ public class AimFragment extends Fragment {
                 alertModifyDialog("修改组名称", group);
 
                 String str = (String)adapter.getGroup(groupPosition);
-                Toast.makeText(getActivity(),str,Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(),str,Toast.LENGTH_SHORT).show();
             }
             return false;
         }

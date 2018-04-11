@@ -308,6 +308,7 @@ public class PersonalCenterActivity extends AppCompatActivity implements OnChart
                 }
 
                 user.logOut();
+                mainactivity.finish();
                 Intent intent1 = new Intent(PersonalCenterActivity.this,LoginActivity.class);
                 startActivity(intent1);
                 //mainactivity.finish();

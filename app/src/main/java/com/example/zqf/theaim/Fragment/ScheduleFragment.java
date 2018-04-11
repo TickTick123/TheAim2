@@ -204,13 +204,13 @@ public class ScheduleFragment extends Fragment {
                                         int Sum = user1.getScheduleNumber();
                                         //toast(Sum+"d");
                                         user1.setScheduleNumber(Sum - 1);
-                                        replaceFragment(new ScheduleFragment());
+                                       // replaceFragment(new ScheduleFragment());
                                         SaveUserRecord(user1.getObjectId(),user1);
                                     }else if(schedule1.getDone().equals("false")){
                                         int Sum = user1.getScheduleNumber();
                                         //toast(Sum+"d");
                                         user1.setScheduleNumber(Sum - 1);
-                                        replaceFragment(new ScheduleFragment());
+                                        //replaceFragment(new ScheduleFragment());
                                         SaveUserRecord(user1.getObjectId(),user1);
                                     }
 

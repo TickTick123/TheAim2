@@ -212,13 +212,15 @@ public class UserImformationActivity extends AppCompatActivity {
 
                     }else if(!id_change.getText().equals(user.getUsername()) && mail_change.getText().equals(user.getEmail())){
                         user.setUsername(id_change.getText().toString());
-                    }else if(id_change.getText().equals(user.getUsername()) && !mail_change.getText().equals(user.getEmail())){
+                    }else if(id_change.getText().equals(user.getUsername()) && !mail_change.getText().equals(user.getEmail().toString())){
                         user.setEmail(mail_change.getText().toString());
                     }else if(id_change.getText().equals(user.getUsername()) && mail_change.getText().equals(user.getEmail())){
                         user.setUsername(id_change.getText().toString());
                         user.setEmail(mail_change.getText().toString());
                     }
                 }
+//                user.setDoscheduleNumber(0);
+//                user.setScheduleNumber(0);
                 SaveUserRecord(user.getObjectId(),user);
                 this.finish();
                 super.finish();

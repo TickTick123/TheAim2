@@ -1,5 +1,6 @@
 package com.example.zqf.theaim;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,6 +15,8 @@ import com.example.zqf.theaim.Bean.User;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
+
+import static com.example.zqf.theaim.LoginActivity.loginActivity;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -45,7 +48,6 @@ public class RegisterActivity extends AppCompatActivity {
                 user.setRewardpoint(0);
                 user.setScheduleNumber(0);
                 user.setDoscheduleNumber(0);
-                //user.setEmail("mail@qq.com");
 
                 user.signUp(new SaveListener<User>() {
                     @Override
@@ -53,6 +55,9 @@ public class RegisterActivity extends AppCompatActivity {
                         if(e==null){
                             toast("注册成功");
                             finish();
+//                            loginActivity.finish();
+//                            Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+//                            startActivity(intent);
                         }
                         if(e.getErrorCode()==202)
                             toast("该用户名已被占用，请输入一个新的用户名");       //异常处理1

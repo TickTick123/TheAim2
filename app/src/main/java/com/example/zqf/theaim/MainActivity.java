@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -43,7 +45,15 @@ import com.example.zqf.theaim.Fragment.RewardFragment;
 import com.example.zqf.theaim.Fragment.ScheduleFragment;
 import com.example.zqf.theaim.Fragment.TodayFragment;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
@@ -62,6 +72,12 @@ public class MainActivity extends AppCompatActivity
     private int num;              //标记目前所在fragment
     static Toolbar toolbar;
     User user;
+    public static SharedPreferences sp;
+    public static SharedPreferences.Editor editor;
+    public static String dataMap,dataParentList;
+    public static MyAdapter adapter;
+    public static List<String> parentList;
+    public static Map<String,List<String>> map;
 
     private TextView user_id;
     private TextView user_mail;
@@ -75,6 +91,10 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mainactivity=MainActivity.this;
+//        sp = this.getSharedPreferences(user.getUsername()+"",this.MODE_PRIVATE);
+//        editor = sp.edit();
+        //initData();
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         num=0;
@@ -119,6 +139,43 @@ public class MainActivity extends AppCompatActivity
         user_id.setText(user.getUsername()+"");
         user_mail.setText(user.getEmail()+"");
 
+        sp = getSharedPreferences(user.getUsername()+"",MODE_PRIVATE);
+        map = new HashMap<String, List<String>>();
+        parentList = new ArrayList<String>();
+        dataMap = sp.getString("dataMap", null);
+        dataParentList = sp.getString("dataParentList", null);
+        //sp = this.getSharedPreferences(bu.getUsername()+"",this.MODE_PRIVATE);
+        editor = sp.edit();
+        if(dataMap== null || dataParentList == null){
+        }
+        else{
+            try {
+                //初始化parentList
+                JSONArray jsonArray = new JSONArray(dataParentList);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    parentList.add(jsonArray.get(i).toString());
+                }
+
+                //初始化map
+                JSONObject jsonObject = new JSONObject(dataMap);
+                for (int i = 0; i < jsonObject.length(); i++) {
+                    String key = jsonObject.getString(parentList.get(i));
+                    JSONArray array = new JSONArray(key);
+                    List<String> list = new ArrayList<String>();
+                    for (int j = 0; j < array.length(); j++) {
+                        list.add(array.get(j).toString());
+                    }
+                    map.put(parentList.get(i), list);
+                }
+
+                Log.d("eric", "①："+map+"②："+parentList);
+            } catch (JSONException ex) {
+                ex.printStackTrace();
+                Log.e("eric","String转Map或List出错"+ex);
+            }
+        }
+        Log.e("eric", dataMap+"!&&!"+dataParentList);
+        saveData();
 
         File F = new File(path0);
         if(!F.exists()){
@@ -342,11 +399,16 @@ public class MainActivity extends AppCompatActivity
         }));
     }
 
+    public static void saveData(){
+        JSONObject jsonObject = new JSONObject(map);
+        dataMap = jsonObject.toString();
+        dataParentList = parentList.toString();
+        editor = sp.edit();
+        editor.putString("dataMap", dataMap);
+        editor.putString("dataParentList", dataParentList);
+        editor.commit();
+        // editor.clear().commit();
+    }
 
-
-//    public void onClick(View v){
-//        Intent intent=new Intent(this,PersonalCenterActivity.class);
-//        startActivity(intent);
-//    }
 
 }

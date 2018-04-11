@@ -137,7 +137,7 @@ public class RewardFragment extends Fragment{
 
                         user.setRewardpoint(user.getRewardpoint()-reward.getCostpoint());
                         String id = user.getObjectId();
-                        user.update(id, new UpdateListener() {
+                        user.update(id,new UpdateListener() {
                             @Override
                             public void done(BmobException e) {
                                 if (e == null) {
@@ -148,9 +148,6 @@ public class RewardFragment extends Fragment{
                                 }
                             }
                         });
-
-
-
                     }
                 });
                 dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
