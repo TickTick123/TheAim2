@@ -1,14 +1,18 @@
 package com.example.zqf.theaim;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -147,6 +151,24 @@ public class PersonalCenterActivity extends AppCompatActivity implements OnChart
                 builder.setIcon(R.mipmap.camera);
                 builder.setTitle("请选择获取图片方式");
                 final String[] Items={"从相册中选择","使用相机拍摄"};
+//                builder.setItems(Items, new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        if(i==0) {
+//                            Intent intent1 = new Intent(Intent.ACTION_PICK, null);//返回被选中项的URI  
+//                            intent1.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");//得到所有图片的URI
+//                            startActivityForResult(intent1,1);
+//                        }
+//                        if(i==1){
+//                            try{
+//                                Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//开启相机应用程序获取并返回图片（capture：俘获）  
+//                                intent2.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(),"head.jpg")));//指明存储图片或视频的地址URI  
+//                                startActivityForResult(intent2,2);//采用ForResult打开  
+//                            } catch (Exception e) {
+//                                Toast.makeText(getApplicationContext(),"相机无法启动，请先开启相机权限", Toast.LENGTH_LONG).show();
+//                            }
+//                        }
+//                    }
+//                });
                 builder.setItems(Items, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if(i==0) {
@@ -155,16 +177,20 @@ public class PersonalCenterActivity extends AppCompatActivity implements OnChart
                             startActivityForResult(intent1,1);
                         }
                         if(i==1){
-                            try{
+                            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA)!= PackageManager
+                                    .PERMISSION_GRANTED||ContextCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager
+                                    .PERMISSION_GRANTED) {
+                                ActivityCompat.requestPermissions(getParent(), new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                            }
+                            else{
                                 Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//开启相机应用程序获取并返回图片（capture：俘获）  
-                                intent2.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(),"head.jpg")));//指明存储图片或视频的地址URI  
-                                startActivityForResult(intent2,2);//采用ForResult打开  
-                            } catch (Exception e) {
-                                Toast.makeText(getApplicationContext(),"相机无法启动，请先开启相机权限", Toast.LENGTH_LONG).show();
+                                intent2.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "head.jpg")));//指明存储图片或视频的地址URI  
+                                startActivityForResult(intent2, 2);//采用ForResult打开
                             }
                         }
                     }
                 });
+
                 builder.setCancelable(true);
                 AlertDialog dialog=builder.create();
                 dialog.show();

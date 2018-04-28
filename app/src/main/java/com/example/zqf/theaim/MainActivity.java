@@ -91,10 +91,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mainactivity=MainActivity.this;
-//        sp = this.getSharedPreferences(user.getUsername()+"",this.MODE_PRIVATE);
-//        editor = sp.edit();
-        //initData();
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         num=0;
